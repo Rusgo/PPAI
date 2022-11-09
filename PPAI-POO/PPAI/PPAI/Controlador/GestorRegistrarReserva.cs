@@ -45,6 +45,7 @@ namespace PPAI
 
         public void tomarOpcionReservarTurnoRT()                                                                             //METODO QUE INICIA LA BUSQUEDA DE TIPOS DE RECURSO TECNOLOGICO
         {
+
             List<String> listaNombresTiposRT = buscarTiposRT();
             pantallaRegistrarReserva.mostrarTiposRT(listaNombresTiposRT);                                                //SE LLAMA A METODOS DE LA PANTALLA PARA INICIAR UNA NUEVA INTERACCION
             pantallaRegistrarReserva.solicitarSeleccionTipoRT();
@@ -53,27 +54,42 @@ namespace PPAI
         public List<String> buscarTiposRT() {                                                                            //SE RECUPERAN LOS OBJETOS DE TIPO RT DE OBJETOSCREADOS Y SE AGREGAN A UNA LISTA
 
             List<String> listaNombresTiposRT = new List<String>();
-            foreach (TipoRecursoTecnologico tipoRT in ObjetosCreados.TiposRT)
+            using (var ctx = new Contexto.Context())
             {
-                listaNombresTiposRT.Add(tipoRT.getNombre());
+                var tiposRt = ctx.TiposRecursosTecnologicos.ToList();
+                foreach (TipoRecursoTecnologico tipoRT in tiposRt)
+                {
+                    listaNombresTiposRT.Add(tipoRT.getNombre());
+                }
+
+                return listaNombresTiposRT;
             }
 
-            return listaNombresTiposRT;
         }
 
 
         public void tomarSeleccionTipoRT(string seleccionTipoRT)                                                        //BUSCA Y GUARDA EL TIPO RT SELECCIONADO
-                                                                                                                        
+
         {
             this.tipoRTSeleccionado = null;
-            foreach (TipoRecursoTecnologico tipoRT in ObjetosCreados.TiposRT)
+            using (var ctx = new Contexto.Context())
             {
-                if (tipoRT.sosTipoRT(seleccionTipoRT))                                                               //PATRON EXPERTO - EL TIPORT SABE SI ES DE ESE TIPO
+                var tiposRt = ctx.TiposRecursosTecnologicos.ToList();
+                foreach (TipoRecursoTecnologico tipoRT in tiposRt)
                 {
-                    this.tipoRTSeleccionado = tipoRT;
-                    break;
+                    foreach (TipoRecursoTecnologico trt in tiposRt)
+                    {
+                        if (trt.sosTipoRT(seleccionTipoRT))                                                               //PATRON EXPERTO - EL TIPORT SABE SI ES DE ESE TIPO
+                        {
+                            this.tipoRTSeleccionado = trt;
+                            break;
+                        }
+                    }
                 }
+
+
             }
+
             List<List<string>> datosRT = buscarRTporTipoRT(tipoRTSeleccionado);
             pantallaRegistrarReserva.mostrarRT(datosRT);
             pantallaRegistrarReserva.solicitarSeleccionRT();
@@ -83,14 +99,18 @@ namespace PPAI
         public List<List<string>> buscarRTporTipoRT(TipoRecursoTecnologico tipoRTSeleccionado)                      //OBTIENE TODOS LOS RT DEL TIPORTSELECCIONADO PARA CADA CI 
         {
             List<List<string>> datosRT = new List<List<string>>();
-            foreach (CentroDeInvestigacion CI in ObjetosCreados.CentrosInvestigacion)
+            using (var ctx = new Contexto.Context())
             {
-
-                datosRT = CI.tieneRTDelTipoRTSeleccionado(tipoRTSeleccionado, datosRT);                          
+                var CI = ctx.CentroDeInvestigacion.ToList();
+                foreach (CentroDeInvestigacion CENTRO in CI)
+                {
+                    datosRT = CENTRO.tieneRTDelTipoRTSeleccionado(tipoRTSeleccionado, datosRT);
+                }
+                agruparPorCI(datosRT);
+                return datosRT;
             }
-            agruparPorCI(datosRT);
-            return datosRT;
-            
+
+
         }
 
         public List<List<string>> agruparPorCI(List<List<string>> lista)                                            //COMPARA TODOS LOS ELEMENTOS DE LA LISTA ENTRE SI (EN ESTE CASO POR EL PRIMER ELEMENTO DE LA SUBLISTA) Y LOS ORDENA
@@ -101,40 +121,49 @@ namespace PPAI
 
         public void tomarSeleccionRT(string nombreCIdeRTSeleccionado, int numeroRT)           // GUARDA EL RT SELECCIONADO, Y BUSCA LOS TURNOS DEL MISMO                      
         {
-
-            foreach (CentroDeInvestigacion ci in ObjetosCreados.CentrosInvestigacion)
+            using (var ctx = new Contexto.Context())
             {
-                if (ci.Nombre == nombreCIdeRTSeleccionado)
+                var CI = ctx.CentroDeInvestigacion.ToList();
+
+                foreach (CentroDeInvestigacion CENTRO in CI)
                 {
-                    foreach (RecursoTecnologico rt in ci.RecursoTecnologico)
+                    if (CENTRO.Nombre == nombreCIdeRTSeleccionado)
                     {
-                        if (rt.sosRT(numeroRT))                                                               
+                        foreach (RecursoTecnologico rt in CENTRO.RecursoTecnologico)
                         {
-                            this.rtSeleccionado = rt;
-                            this.ciDelRTSeleccionado = ci;
-                            break;
-                        }
-                        else
-                        {
-                            this.rtSeleccionado = null;
+                            if (rt.sosRT(numeroRT))
+                            {
+                                this.rtSeleccionado = rt;
+                                this.ciDelRTSeleccionado = CENTRO;
+                                break;
+                            }
+                            else
+                            {
+                                this.rtSeleccionado = null;
+                            }
                         }
                     }
                 }
+                getUsuarioSesionActual();
+                obtenerTurnosRT(pertenenciaDeCientificoACI);
             }
-            getUsuarioSesionActual();
-            obtenerTurnosRT(pertenenciaDeCientificoACI);
+
         }
 
         public void getUsuarioSesionActual()        //BUSCA Y GUARDA AL CIENTIFICO LOGUEADO
         {
-            sesionActual = ObjetosCreados.sesionActual;
-            cientificoLogueado = this.SesionActual.getCientifico();
-            pertenenciaDeCientificoACI = rtSeleccionado.perteneceAEsteCI(cientificoLogueado, ciDelRTSeleccionado);
+            using (var ctx = new Contexto.Context())
+            {
+                var sesionActual = ctx.Sesiones.Where(x => x.FechaHoraFin == null).FirstOrDefault();
+                cientificoLogueado = this.SesionActual.getCientifico();
+                pertenenciaDeCientificoACI = rtSeleccionado.perteneceAEsteCI(cientificoLogueado, ciDelRTSeleccionado);
+            }
+
 
         }
 
         public void obtenerTurnosRT(bool pertenenciaDeCientificoACI)                            //OBTIENE LOS TURNOS DEL RECURSO TECNOLOGÍCO SELECCIONADO POSTERIORES A LA FECHA/HORA ACTUAL , AGRUPANDOLOS Y ORDENANDOLOS 
-        {                                                                                       
+        {
             this.fechaActual = getFechaActual();
             this.listaDatosTurnos = rtSeleccionado.obtenerTurnos();
             ordenarYAgruparTurnos(listaDatosTurnos);
@@ -161,11 +190,11 @@ namespace PPAI
                 int contador = 0;
                 for (int fila = 0; fila < listaDatosTurnos.Count; fila++)
                 {
-                    
+
                     if (dia.Date == (DateTime.Parse(listaDatosTurnos[fila][0])).Date && listaDatosTurnos[fila][2].ToString() == "Disponible")
                     {
                         contador += 1;              //POR CADA TURNO SE FIJA SI COINCIDE CON EL DIA Y SI ES DISPONIBLE Y AUMENTA EL CONTADOR DEL DIA
-                    }     
+                    }
                 }
                 listaContadores.Add(contador);
 
@@ -186,9 +215,9 @@ namespace PPAI
                     turnosXFecha.Add(listaDatosTurnos[fila]);
                 }
             }
-            pantallaRegistrarReserva.mostrarTurnos(turnosXFecha);                
+            pantallaRegistrarReserva.mostrarTurnos(turnosXFecha);
         }
-        
+
         public void tomarSeleccionTurno(string fechaHoraInicio, string fechaHoraFin)                                       // GUARDA EL TURNO SELECCIONADO, E INVOCA EL METODO DE LA PANTALLA PARA SOLICITAR LA CONFIRMACION DE LA RESERVA
         {
             this.turnoSeleccionado = rtSeleccionado.esTurno(fechaHoraInicio, fechaHoraFin);
@@ -199,58 +228,61 @@ namespace PPAI
         public void tomarConfirmacionReserva(bool whatsapp, bool mail)                                                       //TOMA LA CONFIRMACION Y DISPARA EL METODO PARA LA GENERACION DE LA RESERVA
         {
             List<String> marcaModelo = this.rtSeleccionado.getMarcaYModelo();
+
             this.marcaRTSeleccionado = marcaModelo[0];
             this.modeloRTSeleccionado = marcaModelo[1];
+
             string mensaje = "¿Está seguro que desea confirmar el turno con fecha hora inicio: " + turnoSeleccionado.FechaHoraInicio.ToString() + " y fecha hora fin: " +
-                turnoSeleccionado.FechaHoraFin.ToString() + " para el Recurso Tecnológico: " + rtSeleccionado.TipoRecursoTecnologico.Nombre.ToString() + " Nro. inventario: " + 
+                turnoSeleccionado.FechaHoraFin.ToString() + " para el Recurso Tecnológico: " + rtSeleccionado.TipoRecursoTecnologico.Nombre.ToString() + " Nro. inventario: " +
                 rtSeleccionado.NumeroRT.ToString() + " Modelo: " + modeloRTSeleccionado + " Marca: " + marcaRTSeleccionado + "?";
-            if (MessageBox.Show( mensaje , "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show(mensaje, "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 generarReservaRT(whatsapp, mail);
             }
             ;
-            
-            
+
+
         }
 
+        //sacarAlPingoooooo
         public void getEstadoReservado()  //OBTIENE EL PUNTERO DEL ESTADO RESERVADO
         {
             foreach (Estado estado in ObjetosCreados.Estados)
             {
-                if (estado.esAmbitoTurno())
-                {
-                    if (estado.esReservado())
-                    {
-                        this.estadoAAsignar = estado;
-                    }
-                }
-            } 
+
+                this.estadoAAsignar = estado;
+
+            }
         }
 
         public void generarReservaRT(bool whatsapp, bool mail)                             //CAMBIA EL ESTADO DEL TURNO SELECCIONADO A RESERVADO Y LO ASIGNA AL CENTRO DE INVESTIGACION
         {
             getEstadoReservado();
-            rtSeleccionado.reservar(turnoSeleccionado, this.estadoAAsignar, this.cientificoLogueado);
+            DateTime date = new DateTime();
+            date = DateTime.Now;
+            rtSeleccionado.reservar(turnoSeleccionado, this.estadoAAsignar, this.cientificoLogueado, date);
             generarNotificacionParaCientifico(whatsapp, mail);
         }
 
         public void generarNotificacionParaCientifico(bool whatsapp, bool mail)         //GENERA LA O LAS NOTIFICACIONES PARA EL CIENTIFICO SEGUN LA SELECCION DE LOS MÉTODOS
         {
             string mailCientifico = this.cientificoLogueado.getMail();
-            string numeroWhatsApp = this.cientificoLogueado.getNumeroTelefono().ToString() ;
+            string numeroWhatsApp = this.cientificoLogueado.getNumeroTelefono().ToString();
 
             if (whatsapp)
             {
-                ObjetosCreados.InterfazWhatsApp.enviarNotificacionReserva(numeroWhatsApp, this.rtSeleccionado, this.turnoSeleccionado, this.marcaRTSeleccionado, this.modeloRTSeleccionado);
+                InterfazWhatsApp InterfazWhatsApp = new InterfazWhatsApp();
+                InterfazWhatsApp.enviarNotificacionReserva(numeroWhatsApp, this.rtSeleccionado, this.turnoSeleccionado, this.marcaRTSeleccionado, this.modeloRTSeleccionado);
+
+
             }
 
-            if (mail)
-            {
-                ObjetosCreados.InterfazMail.enviarNotificacionReserva(mailCientifico, this.rtSeleccionado, this.turnoSeleccionado, this.marcaRTSeleccionado, this.modeloRTSeleccionado);
-
+            if (mail) {
+            InterfazMail InterfazMail = new InterfazMail();
+            InterfazMail.enviarNotificacionReserva(mailCientifico, this.rtSeleccionado, this.turnoSeleccionado, this.marcaRTSeleccionado, this.modeloRTSeleccionado);
             }
             finCU();
-        }
+    }
 
 
         public void finCU()     //FINALIZA EL CU

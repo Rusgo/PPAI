@@ -8,6 +8,7 @@ namespace PPAI
 {
     public class PersonalCientifico //DEFINO LA CLASE 
     {
+        private int Id;
         private string legajo;
         private string nombre;
         private string apellido;
@@ -34,6 +35,7 @@ namespace PPAI
         public PersonalCientifico() { }
 
         //GETTERS Y SETTERS 
+        public int id { get => Id; set => Id = value; }
         public string Legajo { get => legajo; set => legajo = value; }
         public string Nombre { get => nombre; set => legajo = value; }
         public string Apellido { get => apellido; set => legajo = value; }

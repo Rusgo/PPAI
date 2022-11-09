@@ -25,7 +25,10 @@ namespace PPAI.Contexto
         public DbSet<CambioEstadoRT> CambioEstadoRT { get; set; }
         public DbSet<CambioEstadoTurno> CambioEstadoTurno { get; set; }
         public DbSet<CentroDeInvestigacion> CentroDeInvestigacion { get; set; }
-        public DbSet<Estado> Estados { get; set; }
+
+        public DbSet<Estado> Disponibles { get; set; }
+        public DbSet<Estado> Seleccionados { get; set; }
+
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<Modelo> Modelos { get; set; }
         public DbSet<PersonalCientifico> PersonalCientifico { get; set; }

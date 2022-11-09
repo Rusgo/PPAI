@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PPAI;
 using System.Globalization;
+using PPAI.Clases;
 
 namespace PPAI.AccesoDatos
 {
@@ -62,22 +63,23 @@ namespace PPAI.AccesoDatos
 
 
         //estados turno
-        public static Estado estado1 = new Estado("Cancelado por mantenimiento correctivo", "Estado de turno cancelado por mantenimiento correctivo", "turno", false, false);
-        public static Estado estado2 = new Estado("Con ingreso en Mantenimiento correctivo", "Estado de turno con ingreso en Mantenimiento correctivo", "turno", false, false);
-        public static Estado estado3 = new Estado("Disponible", "Estado de turno Disponible", "turno", true, true);
-        public static Estado estado4 = new Estado("Reservado", "Estado de turno Reservado", "turno", true, false);
-        public static Estado estado5 = new Estado("Sin Uso", "Estado de turno Sin Uso", "turno", false, false);
-        public static Estado estado6 = new Estado("En Uso", "Estado de turno En Uso", "turno", false, false);
-        public static Estado estado7 = new Estado("Reserva Sin Uso", "Estado de turno Reserva Sin Uso", "turno", false, false);
-        public static Estado estado8 = new Estado("Con reserva pendiente de confirmacion", "Estado de turno Con reserva pendiente de confirmacion", "turno", true, false);
+        public static Disponible estado1 = new Disponible();
+        public static Disponible estado2 = new Disponible();
+        public static Disponible estado3 = new Disponible();
+        public static Disponible estado4 = new Disponible();
+        public static Disponible estado5 = new Disponible();
+        public static Disponible estado6 = new Disponible();
+        public static Disponible estado7 = new Disponible();
+        public static Disponible estado8 = new Disponible();
+        public static Disponible estado9 = new Disponible();
+        public static Disponible estado10 = new Disponible();
+        public static Disponible estado11 = new Disponible();
+        public static Disponible estado12 = new Disponible();
+        public static Disponible estado13 = new Disponible();
+        public static Disponible estado14 = new Disponible();
 
         //estados rt
-        public static Estado estado9 = new Estado("Ingresado", "Estado de RT Disponible", "rt", false, false);
-        public static Estado estado10 = new Estado("Disponible", "Estado de RT Disponible", "rt", false, true);
-        public static Estado estado11 = new Estado("En mantenimiento", "Estado de RT En mantenimiento", "rt", false, true);
-        public static Estado estado12 = new Estado("Con inicio de Mantenimiento correctivo", "Estado de RT En mantenimiento", "rt", false, true);
-        public static Estado estado13 = new Estado("Dado de baja técnica", "Estado de RT En mantenimiento", "rt", false, false);
-        public static Estado estado14 = new Estado("Dado de baja definitiva", "Estado de RT En mantenimiento", "rt", false, false);
+
 
         public static List<Estado> Estados = new List<Estado> { estado1, estado2, estado3, estado4, estado5, estado6, estado7, estado8, estado9, estado10, estado11, estado12, estado13, estado14 };
 

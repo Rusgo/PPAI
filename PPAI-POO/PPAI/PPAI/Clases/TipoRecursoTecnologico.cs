@@ -11,6 +11,7 @@ namespace PPAI
 {
     public class TipoRecursoTecnologico     //DEFINO LA CLASE 
     {
+        private int Id;
         private string nombre;
         private string descripcion;
 
@@ -18,6 +19,7 @@ namespace PPAI
 
         public TipoRecursoTecnologico(string nombre, string descripcion)
         {
+
             this.nombre = nombre;
             this.descripcion = descripcion;
         }
@@ -25,6 +27,7 @@ namespace PPAI
         public TipoRecursoTecnologico() { }
 
         //GETTERS Y SETTERS
+        public int id { get => Id; set => Id = value; }
         public string Nombre { get => nombre; set => nombre = value; }
         public string Descripcion { get => descripcion; set => descripcion = value; }
 

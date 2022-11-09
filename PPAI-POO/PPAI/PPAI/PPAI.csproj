@@ -162,8 +162,10 @@
     <Compile Include="Clases\CambioEstadoRT.cs" />
     <Compile Include="Clases\CambioEstadoTurno.cs" />
     <Compile Include="Clases\CentroDeInvestigacion.cs" />
+    <Compile Include="Clases\Disponible.cs" />
     <Compile Include="Clases\Estado.cs" />
     <Compile Include="Clases\InterfazWhatsApp.cs" />
+    <Compile Include="Clases\Reservado.cs" />
     <Compile Include="Contexto\Context.cs" />
     <Compile Include="Controlador\GestorRegistrarReserva.cs" />
     <Compile Include="Clases\InterfazMail.cs" />

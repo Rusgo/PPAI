@@ -10,6 +10,7 @@ namespace PPAI
 {
         public class Sesion         //DEFINO LA CLASE 
     {
+            private int Id;
             private int idSesion;
             private DateTime fechaHoraInicio;
             private DateTime fechaHoraFin;
@@ -26,7 +27,8 @@ namespace PPAI
 
             public Sesion() { }
 
-            //GETTERS Y SETTERS
+        //GETTERS Y SETTERS
+            public int id { get => Id; set => Id = value; }
             public int IdSesion { get => idSesion; set => idSesion = value; }
             public DateTime FechaHoraInicio { get => fechaHoraInicio; set => fechaHoraInicio = value; }
             public DateTime FechaHoraFin { get => fechaHoraFin; set => fechaHoraFin = value; }

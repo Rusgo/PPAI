@@ -9,6 +9,7 @@ namespace PPAI
 {
     public class Usuario        //DEFINO LA CLASE 
     {
+        private int Id;
         private Boolean habilitado;
         private string clave;
         private string usuario;
@@ -25,6 +26,7 @@ namespace PPAI
         public Usuario() { }
 
         //GETTERS Y SETTERS
+        public int id { get => Id; set => Id = value; }
         public Boolean Habilitado { get => habilitado; set => habilitado = value; }
         public string Contraseña { get => clave; set => clave = value; }
         public string UsuarioNombre { get => usuario; set => usuario = value; }

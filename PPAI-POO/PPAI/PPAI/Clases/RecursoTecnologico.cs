@@ -12,6 +12,7 @@ namespace PPAI
 {
     public class RecursoTecnologico     //DEFINO LA CLASE 
     {
+        private int Id;
         private int numeroRT;
         private TipoRecursoTecnologico tipoRecursoTecnologico;
         private Modelo modelo;
@@ -33,7 +34,7 @@ namespace PPAI
         public RecursoTecnologico() { }
 
         //GETTERS Y SETTERS
-
+        public int id { get => Id; set => Id = value; }
         public int NumeroRT { get => numeroRT; set => numeroRT = value; }
         public TipoRecursoTecnologico TipoRecursoTecnologico{ get => tipoRecursoTecnologico; set => tipoRecursoTecnologico = value; }
         public Modelo Modelo { get => modelo; set => modelo = value; }
@@ -150,9 +151,9 @@ namespace PPAI
             return null;
         }
 
-        public void reservar(Turno turnoSeleccionado, Estado estadoAAsignar, PersonalCientifico cientificoLogueado)      //CAMBIA EL ESTADO DEL TURNO SELECCIONADO A RESERVADO Y LO ASIGNA AL CENTRO DE INVESTIGACION
+        public void reservar(Turno turnoSeleccionado, Estado estadoAAsignar, PersonalCientifico cientificoLogueado, DateTime date)      //CAMBIA EL ESTADO DEL TURNO SELECCIONADO A RESERVADO Y LO ASIGNA AL CENTRO DE INVESTIGACION
         {
-            turnoSeleccionado.reservar(estadoAAsignar);
+            turnoSeleccionado.reservar(date);
             CentroDeInvestigacion ci = getCI(this);
             ci.asignarTurno(turnoSeleccionado, cientificoLogueado);
         }

@@ -11,11 +11,17 @@ namespace PPAI
 {
     public class CambioEstadoTurno      //DEFINO LA CLASE
     {
-        private int Id { get; set; }
-        private Estado estado { get; set; }
-        private DateTime fechaHoraDesde { get; set; }
-        private DateTime fechaHoraHasta { get; set; }
+        private int Id;
+        private Estado estado;
+        private DateTime fechaHoraDesde;
+        private DateTime fechaHoraHasta;
 
+
+        //get y set
+        public int id { get => Id; set => Id = value; }
+        public DateTime FechaDesde { get => fechaHoraDesde; set => fechaHoraDesde = value; }
+        public DateTime FechaHasta { get => fechaHoraHasta; set => fechaHoraHasta = value; }
+        public Estado Estado { get => estado; set => estado = value; }
         //CONSTRUCTOR DE LA CLASE
 
         public CambioEstadoTurno(Estado estado, DateTime fechaHoraDesde, [Optional] DateTime fechaHoraHasta)
@@ -24,6 +30,8 @@ namespace PPAI
             this.fechaHoraDesde = fechaHoraDesde;
             this.fechaHoraHasta = fechaHoraHasta;
         }
+
+
 
         public CambioEstadoTurno() { }
 

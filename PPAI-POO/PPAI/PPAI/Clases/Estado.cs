@@ -6,58 +6,52 @@ using System.Threading.Tasks;
 
 namespace PPAI
 {
-    public class Estado     //DEFINO LA CLASE
+    public abstract class Estado     //DEFINO LA CLASE
     {
+        private int Id;
         private string nombre;
         private string descripcion;
-        private string ambito;
-        private bool esCancelable;
-        private bool esReservable;
+        
+
 
         //CONSTRUCTOR DE LA CLASE
 
-        public Estado(string nombre, string descripcion, string ambito, bool esCancelable, bool esReservable)
+        public Estado(string nombre, string descripcion)
         {
             this.nombre = nombre;
             this.descripcion = descripcion;
-            this.ambito = ambito;
-            this.esCancelable = esCancelable;
-            this.esReservable = esReservable;
+            
+
         }
 
         public Estado() { }
 
         //GETTERS Y SETTERS
+        public int id { get => Id; set => Id = value; }
         public string Nombre { get => nombre; set => nombre = value; }
         public string Descripcion { get => descripcion; set => descripcion = value; }
-        public string Ambito { get => ambito; set => ambito = value; }
-        public bool EsReservable { get => esReservable; set => esReservable = value; }
 
 
-        public bool esEstadoReservable() // VERIFICA QUE EL ESTADO SEA RESERVABLE
-        {
-            if (esReservable)
-            {
-                return esReservable;
-            }
 
-            return false;
-        }
 
         public bool esAmbitoTurno()  // VERIFICA QUE EL ESTADO ES DEL AMBITO TURNO
         {
-            return (this.ambito == "turno");
+            return false;
         }
 
         public bool esReservado()  // VERIFICA QUE EL ESTADO ES RESERVADO
         {
-            return (this.nombre == "Reservado");
+            return false;
         }
 
         public string getNombre() //DEVUELVE EL NOMBRE DEL ESTADO
         {
             return this.nombre;
         }
+
+        //metodos de estado Turno
+        public abstract void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date);
+        public abstract Estado crearProximoEstado();
+
     }
 }
-

@@ -8,6 +8,7 @@ namespace PPAI
 {
     public class Marca  //DEFINO LA CLASE 
     {
+        private int Id;
         private List <Modelo> modelos;
         private string nombre;
 
@@ -22,7 +23,7 @@ namespace PPAI
         public Marca() { }
 
         //GETTER Y SETTER DE LA CLASE MARCA
-
+        public int id { get => Id; set => Id = value; }
         public List<Modelo> Modelos { get => modelos; set => modelos = value; }
         public string Nombre { get => nombre; set => nombre = value; }
 

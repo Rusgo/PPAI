@@ -14,11 +14,21 @@ namespace PPAI
 {
     public class AsignacionCientificoDelCI //DEFINO LA CLASE 
     {
-        private int Id { get; set; }
-        private DateTime fechaDesde { get; set }
-        private DateTime fechaHasta { get; set; }
-        private PersonalCientifico personalCientifico { get; set; }
-        private List<Turno> turnos { get; set; }
+        private int Id;
+        private DateTime fechaDesde;
+        private DateTime fechaHasta;
+        
+        private List<Turno> turnos;
+        private PersonalCientifico personalCientifico;
+
+
+        //GET Y SET
+        public int id { get => Id; set => Id = value; }
+        public DateTime FechaDesde { get => fechaDesde; set => fechaDesde = value; }
+        public DateTime FechaHasta { get => fechaHasta; set => fechaHasta = value; }
+        public List<Turno> Turnos { get => turnos; set => turnos = value; }
+        public PersonalCientifico PersonalCientifico { get => personalCientifico; set => personalCientifico = value; }
+        
 
         //CONSTRUCTOR DE LA CLASE
 

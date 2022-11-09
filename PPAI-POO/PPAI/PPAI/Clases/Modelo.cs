@@ -9,6 +9,7 @@ namespace PPAI
 {
     public class Modelo //DEFINO LA CLASE 
     {
+        private int Id;
         private string nombre;
 
         //CONSTRUCTOR DE LA CLASE
@@ -21,7 +22,7 @@ namespace PPAI
         public Modelo() { }
 
         //GET Y SET DE LA CLASE MODELO
-
+        public int id { get => Id; set => Id = value; }
         public string Nombre { get => nombre; set => nombre = value; }
 
         public List<string> getMarcaYModelo()                     //CREA UNA LISTA CON LOS MODELOS Y MARCAS DE LOS RT

@@ -8,10 +8,18 @@ using PPAI.AccesoDatos;
 namespace PPAI
 {
     public class CentroDeInvestigacion      //DEFINO LA CLASE
+
     {
-        private string nombre;
-        private List<RecursoTecnologico> recursoTecnologico;
-        private List<AsignacionCientificoDelCI> cientificos;
+        public int Id;
+        public string nombre;
+        public List<RecursoTecnologico> recursoTecnologico;
+        public List<AsignacionCientificoDelCI> cientificos;
+
+        //get y set
+        public int id { get => Id; set => Id = value; }
+        public string Nombre { get => nombre; set => nombre = value; }
+        public List<RecursoTecnologico> RecursoTecnologico { get => recursoTecnologico; set => recursoTecnologico = value; }
+        public List<AsignacionCientificoDelCI> Cientificos { get => cientificos; set => cientificos = value; }
 
         //CONSTRUCTOR DE LA CLASE
 
@@ -24,10 +32,7 @@ namespace PPAI
 
         public CentroDeInvestigacion() { }
 
-        //GETTERS Y SETTERS
-        public string Nombre { get => nombre; set => nombre = value; }
-        public List<RecursoTecnologico> RecursoTecnologico { get => recursoTecnologico; set => recursoTecnologico = value; }
-        public List<AsignacionCientificoDelCI> Cientificos { get => cientificos; set => cientificos = value; }
+       
 
         public string getNombre() // DEVUELVE EL NOMBRE DEL CI
         {
