@@ -31,6 +31,14 @@ namespace PPAI
             this.fechaHoraDesde = fechaHoraDesde;
             this.fechaHoraHasta = fechaHoraHasta;
         }
+        
+        public CambioEstadoRT(Estado estado, DateTime fechaHoraDesde)
+        {
+            this.estado = estado;
+            this.fechaHoraDesde = fechaHoraDesde;
+            this.fechaHoraHasta = DateTime.Parse("01/01/1900");
+        }
+
 
         public CambioEstadoRT() { }
 

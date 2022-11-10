@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PPAI.Clases;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -10,7 +11,7 @@ namespace PPAI.Contexto
 {
     public class Context : DbContext
     {
-        public Context() : base("Data Source=200.69.137.167,11333;Initial Catalog=DSI_3K1_grupo7;User ID=DSI_3K1_grupo7;Password=..DSI_3K1_grupo7?")
+        public Context() : base("Data Source=DESKTOP-MA4HMUC\\SQLEXPRESS;Initial Catalog=2;Integrated Security=True")
         {
             Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
 
@@ -25,9 +26,9 @@ namespace PPAI.Contexto
         public DbSet<CambioEstadoRT> CambioEstadoRT { get; set; }
         public DbSet<CambioEstadoTurno> CambioEstadoTurno { get; set; }
         public DbSet<CentroDeInvestigacion> CentroDeInvestigacion { get; set; }
-
-        public DbSet<Estado> Disponibles { get; set; }
-        public DbSet<Estado> Seleccionados { get; set; }
+        public DbSet<Estado> Estados { get; set; }
+        public DbSet<Disponible> Disponibles { get; set; }
+        public DbSet<Reservado> Seleccionados { get; set; }
 
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<Modelo> Modelos { get; set; }
@@ -35,7 +36,7 @@ namespace PPAI.Contexto
         public DbSet<RecursoTecnologico> RecursosTecnologicos { get; set; }
         public DbSet<Sesion> Sesiones { get; set; }
         public DbSet<TipoRecursoTecnologico> TiposRecursosTecnologicos { get; set; }
-        public DbSet<Turno> Turno { get; set; }
+        public DbSet<Turno> Turnos { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         
 
@@ -48,7 +49,11 @@ namespace PPAI.Contexto
 
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
+            modelBuilder.Entity<Turno>().HasMany(x => x.CambioEstadoTurno).WithMany().Map(M=>M.ToTable("Intermedia"));
+            modelBuilder.Entity<RecursoTecnologico>().HasMany(x => x.Turnos).WithMany().Map(M => M.ToTable("IntermediaRTxTurnos"));
+            modelBuilder.Entity<RecursoTecnologico>().HasMany(x => x.CambioEstadoRT).WithMany().Map(M => M.ToTable("IntermediaRTxcert"));
+
             base.OnModelCreating(modelBuilder);
-        }
+         }
     }
 }

@@ -17,7 +17,6 @@ namespace PPAI
         private int Id;
         private DateTime fechaDesde;
         private DateTime fechaHasta;
-        
         private List<Turno> turnos;
         private PersonalCientifico personalCientifico;
 

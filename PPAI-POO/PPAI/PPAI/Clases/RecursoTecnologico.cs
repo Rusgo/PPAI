@@ -28,7 +28,7 @@ namespace PPAI
             this.tipoRecursoTecnologico = tipoRecursoTecnologico;
             this.modelo = modelo;
             this.cambioEstadoRT = cambioEstadoRT;
-            this.turnos = turnos;
+            this.turnos = turnos.ToList();
         }
 
         public RecursoTecnologico() { }

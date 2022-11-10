@@ -47,17 +47,26 @@ namespace PPAI
 
         private (bool, Usuario)  validar_Usuario(string usuario, string password)  // VALIDA QUE EXISTA EL USUARIO INGRESADO
         {
+
             bool resultado = false;
-            Usuario usuarioLogueado = null; 
-            foreach (Usuario user in ObjetosCreados.Usuarios) {
-                if(user.UsuarioNombre == usuario && user.Contraseña == password)
+            Usuario usuarioLogueado = null;
+            AccesoDatos.ObjetosCreados.cargarDatos();
+            using (var ctx = new Contexto.Context())
+            {
+                
+                usuarioLogueado = ctx.Usuario.Where(x => x.UsuarioNombre == usuario && x.Contraseña == password).FirstOrDefault();
+                if (usuarioLogueado == null)
+                {
+                    MessageBox.Show("El usuario o la contraseña son incorrectos");
+                }
+                else
                 {
                     resultado = true;
-                    usuarioLogueado = user;
                 }
-                
+
+            return (resultado, usuarioLogueado);
             }
-            return (resultado, usuarioLogueado) ;
+            
         }
 
         private void btn_aceptar_Click(object sender, EventArgs e)

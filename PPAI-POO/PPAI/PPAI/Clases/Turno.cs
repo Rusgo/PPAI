@@ -18,13 +18,14 @@ namespace PPAI
 
         //CONSTRUCTOR DE LA CLASE
 
-        public Turno(DateTime fechaGeneracion, string diaSemana, DateTime fechaHoraInicio, DateTime fechaHoraFin, List<CambioEstadoTurno> cambioEstadoTurno)
+        public Turno(DateTime fechaGeneracion, string diaSemana, DateTime fechaHoraInicio, DateTime fechaHoraFin, List<CambioEstadoTurno> cambioEstadoTurno,Estado estadoActual)
         {
             this.diaSemana = diaSemana;
             this.fechaGeneracion = fechaGeneracion;
             this.fechaHoraInicio = fechaHoraInicio;
             this.fechaHoraFin = fechaHoraFin;
-            this.cambioEstadoTurno = cambioEstadoTurno;
+            this.cambioEstadoTurno = cambioEstadoTurno.ToList();
+            this.EstadoActual = estadoActual;
         }
 
         public Turno() { }

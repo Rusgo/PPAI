@@ -24,12 +24,19 @@ namespace PPAI
         public Estado Estado { get => estado; set => estado = value; }
         //CONSTRUCTOR DE LA CLASE
 
-        public CambioEstadoTurno(Estado estado, DateTime fechaHoraDesde, [Optional] DateTime fechaHoraHasta)
+        public CambioEstadoTurno(Estado estado, DateTime fechaHoraDesde, DateTime fechaHoraHasta)
         {
             this.estado = estado;
             this.fechaHoraDesde = fechaHoraDesde;
             this.fechaHoraHasta = fechaHoraHasta;
         }
+        public CambioEstadoTurno(Estado estado, DateTime fechaHoraDesde)
+        {
+            this.estado = estado;
+            this.fechaHoraDesde = fechaHoraDesde;
+            this.fechaHoraHasta = DateTime.Parse("01/01/1900");
+        }
+        
 
 
 

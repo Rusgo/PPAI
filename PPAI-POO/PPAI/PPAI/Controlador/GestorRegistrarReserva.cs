@@ -8,11 +8,12 @@ using PPAI.AccesoDatos;
 using PPAI.Forms;
 using PPAI;
 using System.Windows.Forms;
+using System.Data.Entity;
 
 namespace PPAI
 {
     public class GestorRegistrarReserva //DEFINO LA CLASE GESTOR
-    {
+    { 
         private PantallaRegistrarReserva pantallaRegistrarReserva;
         private Sesion sesionActual;
         private TipoRecursoTecnologico tipoRTSeleccionado;
@@ -54,6 +55,7 @@ namespace PPAI
         public List<String> buscarTiposRT() {                                                                            //SE RECUPERAN LOS OBJETOS DE TIPO RT DE OBJETOSCREADOS Y SE AGREGAN A UNA LISTA
 
             List<String> listaNombresTiposRT = new List<String>();
+            
             using (var ctx = new Contexto.Context())
             {
                 var tiposRt = ctx.TiposRecursosTecnologicos.ToList();
@@ -64,6 +66,7 @@ namespace PPAI
 
                 return listaNombresTiposRT;
             }
+            
 
         }
 
@@ -262,6 +265,11 @@ namespace PPAI
             date = DateTime.Now;
             rtSeleccionado.reservar(turnoSeleccionado, this.estadoAAsignar, this.cientificoLogueado, date);
             generarNotificacionParaCientifico(whatsapp, mail);
+            using (var ctx = new Contexto.Context())
+            {
+                ctx.Entry(rtSeleccionado).State = EntityState.Modified;
+                ctx.SaveChanges();
+            }
         }
 
         public void generarNotificacionParaCientifico(bool whatsapp, bool mail)         //GENERA LA O LAS NOTIFICACIONES PARA EL CIENTIFICO SEGUN LA SELECCION DE LOS MÉTODOS

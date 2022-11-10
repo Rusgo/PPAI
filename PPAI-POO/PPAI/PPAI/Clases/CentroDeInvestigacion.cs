@@ -26,8 +26,8 @@ namespace PPAI
         public CentroDeInvestigacion(string nombre, List<RecursoTecnologico> recursoTecnologico, List<AsignacionCientificoDelCI> cientificos)
         {
             this.nombre = nombre;
-            this.recursoTecnologico = recursoTecnologico;
-            this.cientificos = cientificos;
+            this.recursoTecnologico = recursoTecnologico.ToList();
+            this.cientificos = cientificos.ToList();
         }
 
         public CentroDeInvestigacion() { }

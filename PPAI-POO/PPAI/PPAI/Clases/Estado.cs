@@ -20,8 +20,6 @@ namespace PPAI
         {
             this.nombre = nombre;
             this.descripcion = descripcion;
-            
-
         }
 
         public Estado() { }
