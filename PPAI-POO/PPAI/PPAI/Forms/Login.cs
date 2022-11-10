@@ -50,7 +50,7 @@ namespace PPAI
 
             bool resultado = false;
             Usuario usuarioLogueado = null;
-            AccesoDatos.ObjetosCreados.cargarDatos();
+            
             using (var ctx = new Contexto.Context())
             {
                 

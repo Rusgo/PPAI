@@ -11,7 +11,7 @@ namespace PPAI.Contexto
 {
     public class Context : DbContext
     {
-        public Context() : base("Data Source=DESKTOP-MA4HMUC\\SQLEXPRESS;Initial Catalog=2;Integrated Security=True")
+        public Context() : base("Data Source=200.69.137.167,11333;Initial Catalog=DSI_3K1_grupo7;User ID=DSI_3K1_grupo7;Password=..DSI_3K1_grupo7?")
         {
             Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
 

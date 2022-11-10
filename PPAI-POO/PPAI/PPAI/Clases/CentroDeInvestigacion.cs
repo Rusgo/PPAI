@@ -46,12 +46,12 @@ namespace PPAI
 
         public List<List<string>> tieneRTDelTipoRTSeleccionado(TipoRecursoTecnologico tipoRTSeleccionado, List<List<string>> s) //BUSCA SOBRE SUS RT LOS QUE CORRESPONDEN AL TIPORTSELECCIONADO Y SEAN ACTIVOS
         {
-            foreach (RecursoTecnologico recursoTecnologico in recursoTecnologico)
-            {
+            foreach (List<string> recursoTecnologico in s)
+            { /*
                 if (recursoTecnologico.esTuTipo(tipoRTSeleccionado))
                 {
                     if (recursoTecnologico.esActivo())
-                    {
+                    {                                                 ROTO
                         List<string> datos = new List<string>();
                         datos.Add(this.nombre);
                         foreach (string datosrt in recursoTecnologico.getDatos(recursoTecnologico))
@@ -60,7 +60,7 @@ namespace PPAI
                         }
                         s.Add(datos);
                     }
-                }
+                }*/
             }
             return s;
         }
