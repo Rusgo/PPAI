@@ -47,7 +47,7 @@ namespace PPAI
 
         public bool esTuUsuario(Usuario usuario)
         {
-            return Usuario == usuario;
+            return Usuario.UsuarioNombre == usuario.UsuarioNombre;
         }
 
         public string getMail()     //DEVUELVE EL MAIL INSTITUCIONAL DEL CIENTIFICO

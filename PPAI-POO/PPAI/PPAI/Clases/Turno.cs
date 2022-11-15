@@ -69,7 +69,7 @@ namespace PPAI
 
         public void reservar(DateTime date)                   //SETEA LA FECHAHORAFIN EN EL CAMBIO ESTADO ANTERIOR Y CREA UN NUEVO CAMBIO ESTADO
         {
-            /*
+            /* delega al estado actual
             foreach ( CambioEstadoTurno ce in this.cambioEstadoTurno)
             {
                 if (ce.esActual())

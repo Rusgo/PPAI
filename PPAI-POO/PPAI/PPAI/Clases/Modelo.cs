@@ -27,21 +27,26 @@ namespace PPAI
 
         public List<string> getMarcaYModelo()                     //CREA UNA LISTA CON LOS MODELOS Y MARCAS DE LOS RT
         {
-            List<string> modeloYMarca = new List<string>();
-            string nombreMarca = "" ;
-            foreach (Marca marca in ObjetosCreados.Marcas)
+            using (Contexto.Context ctx = new Contexto.Context())
             {
-                if (marca.esTuModelo(this))
+                List<Marca> LM = ctx.Marcas.Include("Modelos").ToList();
+                List<string> modeloYMarca = new List<string>();
+                string nombreMarca = "";
+                foreach (Marca marca in LM)
                 {
-                    nombreMarca = marca.getNombre();
-                    break;
+                    if (marca.esTuModelo(this))
+                    {
+                        nombreMarca = marca.getNombre();
+                        break;
+                    }
                 }
+
+                modeloYMarca.Add(nombreMarca);
+                modeloYMarca.Add(nombre);
+
+                return modeloYMarca;
             }
-
-            modeloYMarca.Add(nombreMarca);
-            modeloYMarca.Add(nombre);
-
-            return modeloYMarca;
+            
 
         }
     }

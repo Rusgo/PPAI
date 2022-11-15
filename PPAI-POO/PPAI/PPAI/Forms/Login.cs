@@ -71,6 +71,9 @@ namespace PPAI
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
+                          
+                
+            
             if (txt_usuario.Text == "")
             {
                 MessageBox.Show("La casilla de USUARIO se encuentra vacia");

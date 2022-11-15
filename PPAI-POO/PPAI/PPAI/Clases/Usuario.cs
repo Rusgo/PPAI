@@ -33,15 +33,21 @@ namespace PPAI
 
         public PersonalCientifico getCientifico()  //OBTIENE EL PUNTERO AL CIENTIFICO
         {
-            PersonalCientifico personal = null;
-            foreach ( PersonalCientifico pc in ObjetosCreados.PersonalesCientifico)
+            using (Contexto.Context ctx = new Contexto.Context())
             {
-                if (pc.esTuUsuario(this))
+
+                PersonalCientifico personal = null;
+                List<PersonalCientifico> personalesCientifico = ctx.PersonalCientifico.Include("usuario").ToList();
+                foreach (PersonalCientifico pc in personalesCientifico)
                 {
-                    personal = pc;
+                    if (pc.esTuUsuario(this))
+                    {
+                        personal = pc;
+                    }
                 }
+                return personal;
             }
-            return personal;
+            
         }
     }
 }

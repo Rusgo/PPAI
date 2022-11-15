@@ -265,7 +265,7 @@ namespace PPAI.Forms
                 {
                     dg_turno.Rows[fila].Cells[2].Style.BackColor = Color.FromArgb(21, 171, 206);
                 }
-                if (listaDatosTurnos[fila][2].ToString() == "Con reserva pendiente de confirmacion")
+                if (listaDatosTurnos[fila][2].ToString() == "Con reserva pendiente de confirmacion")   //??????????????????????????????????????????????????????
                 {
                     dg_turno.Rows[fila].Cells[2].Style.BackColor = Color.FromArgb(171, 190, 188);
                 }

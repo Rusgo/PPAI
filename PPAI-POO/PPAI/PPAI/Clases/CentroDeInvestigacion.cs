@@ -46,23 +46,28 @@ namespace PPAI
 
         public List<List<string>> tieneRTDelTipoRTSeleccionado(TipoRecursoTecnologico tipoRTSeleccionado, List<List<string>> s) //BUSCA SOBRE SUS RT LOS QUE CORRESPONDEN AL TIPORTSELECCIONADO Y SEAN ACTIVOS
         {
-            foreach (List<string> recursoTecnologico in s)
-            { /*
-                if (recursoTecnologico.esTuTipo(tipoRTSeleccionado))
+            using (Contexto.Context ctx = new Contexto.Context())
+            {
+                foreach (RecursoTecnologico recursoTecnologico in recursoTecnologico)
                 {
-                    if (recursoTecnologico.esActivo())
-                    {                                                 ROTO
-                        List<string> datos = new List<string>();
-                        datos.Add(this.nombre);
-                        foreach (string datosrt in recursoTecnologico.getDatos(recursoTecnologico))
+                    RecursoTecnologico rt1 = ctx.RecursosTecnologicos.Include("Modelo").Include("TipoRecursoTecnologico").Include("cambioEstadoActual").Where(x=>x.id == recursoTecnologico.id).FirstOrDefault();
+                    if (rt1.esTuTipo(tipoRTSeleccionado))
+                    {
+                        if (recursoTecnologico.esActivo())
                         {
-                            datos.Add(datosrt);
+                            List<string> datos = new List<string>();
+                            datos.Add(this.nombre);
+                            foreach (string datosrt in recursoTecnologico.getDatos(recursoTecnologico))
+                            {
+                                datos.Add(datosrt);
+                            }
+                            s.Add(datos);
                         }
-                        s.Add(datos);
                     }
-                }*/
+                }
+                return s;
             }
-            return s;
+            
         }
 
         public bool esCientificoActivo( PersonalCientifico cientificoLogueado)           //VERIFICA SI LA ASIGNACION DEL CIENTIFICO ES ACTIVA

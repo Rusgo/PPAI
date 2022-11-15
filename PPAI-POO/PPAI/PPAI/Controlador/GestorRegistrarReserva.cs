@@ -82,7 +82,7 @@ namespace PPAI
                 {
                     foreach (TipoRecursoTecnologico trt in tiposRt)
                     {
-                        if (trt.sosTipoRT(seleccionTipoRT))                                                               //PATRON EXPERTO - EL TIPORT SABE SI ES DE ESE TIPO
+                        if (trt.sosTipoRT(seleccionTipoRT) && this.tipoRTSeleccionado == null)                                                               //PATRON EXPERTO - EL TIPORT SABE SI ES DE ESE TIPO
                         {
                             this.tipoRTSeleccionado = trt;
                             break;
@@ -104,7 +104,7 @@ namespace PPAI
             List<List<string>> datosRT = new List<List<string>>();
             using (var ctx = new Contexto.Context())
             {
-                var CI = ctx.CentroDeInvestigacion.ToList();
+                var CI = ctx.CentroDeInvestigacion.Include("RecursoTecnologico").ToList();
                 foreach (CentroDeInvestigacion CENTRO in CI)
                 {
                     datosRT = CENTRO.tieneRTDelTipoRTSeleccionado(tipoRTSeleccionado, datosRT);
@@ -126,7 +126,7 @@ namespace PPAI
         {
             using (var ctx = new Contexto.Context())
             {
-                var CI = ctx.CentroDeInvestigacion.ToList();
+                var CI = ctx.CentroDeInvestigacion.Include("recursoTecnologico").Include("").ToList();
 
                 foreach (CentroDeInvestigacion CENTRO in CI)
                 {
@@ -136,7 +136,8 @@ namespace PPAI
                         {
                             if (rt.sosRT(numeroRT))
                             {
-                                this.rtSeleccionado = rt;
+                                RecursoTecnologico rtFull = ctx.RecursosTecnologicos.Include("TipoRecursoTecnologico").Include("cambioEstadoRT").Include("turnos").Where(x => x.id == rt.id).FirstOrDefault();
+                                this.rtSeleccionado = rtFull;
                                 this.ciDelRTSeleccionado = CENTRO;
                                 break;
                             }
@@ -157,7 +158,7 @@ namespace PPAI
         {
             using (var ctx = new Contexto.Context())
             {
-                var sesionActual = ctx.Sesiones.Where(x => x.FechaHoraFin == null).FirstOrDefault();
+                var sesionActual = ctx.Sesiones.Include("usuario").Where(x => x.FechaHoraFin == null).FirstOrDefault();
                 cientificoLogueado = this.SesionActual.getCientifico();
                 pertenenciaDeCientificoACI = rtSeleccionado.perteneceAEsteCI(cientificoLogueado, ciDelRTSeleccionado);
             }
@@ -242,7 +243,7 @@ namespace PPAI
             {
                 generarReservaRT(whatsapp, mail);
             }
-            ;
+            
 
 
         }
@@ -260,10 +261,10 @@ namespace PPAI
 
         public void generarReservaRT(bool whatsapp, bool mail)                             //CAMBIA EL ESTADO DEL TURNO SELECCIONADO A RESERVADO Y LO ASIGNA AL CENTRO DE INVESTIGACION
         {
-            getEstadoReservado();
+            //getEstadoReservado();
             DateTime date = new DateTime();
             date = DateTime.Now;
-            rtSeleccionado.reservar(turnoSeleccionado, this.estadoAAsignar, this.cientificoLogueado, date);
+            rtSeleccionado.reservar(this.turnoSeleccionado, this.estadoAAsignar, this.cientificoLogueado, date);
             generarNotificacionParaCientifico(whatsapp, mail);
             using (var ctx = new Contexto.Context())
             {

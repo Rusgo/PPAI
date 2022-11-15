@@ -17,7 +17,7 @@ namespace PPAI
         private TipoRecursoTecnologico tipoRecursoTecnologico;
         private Modelo modelo;
         private List<CambioEstadoRT> cambioEstadoRT;
-        private CambioEstadoRT cambioEstadoActual;
+        private Estado estadoActual;
         private List<Turno> turnos;
 
         //CONSTRUCTOR DE LA CLASE
@@ -44,7 +44,7 @@ namespace PPAI
         public bool esTuTipo(TipoRecursoTecnologico tipoRTSeleccionado) //VERIFICA SI ES DEL TIPO ENVIADO POR PARAMETRO
         {
             bool resultado = false;
-            if (this.TipoRecursoTecnologico == tipoRTSeleccionado)
+            if (this.TipoRecursoTecnologico.Nombre == tipoRTSeleccionado.Nombre)
             {
                 resultado = true;
             }
@@ -53,16 +53,8 @@ namespace PPAI
 
         public bool esActivo() //VERIFICA QUE EL RECURSO TECNOLOGICO SEA RESERVABLE (ES DECIR, QUE NO TENGA ESTADO 'DADO DE BAJA TECNICA' O 'DADO DE BAJA DEFINITIVA')
         {
-            cambioEstadoActual = null;
-            foreach (CambioEstadoRT cambioEstado in cambioEstadoRT) {
-
-                if (cambioEstado.esActual())
-                {
-                    cambioEstadoActual = cambioEstado;
-                    break;
-                }
-            }
-            return cambioEstadoActual.esEstadoActualReservable();
+            //ESTADO DISPONIBLE ES QUE ESTA ACTIVO????
+            return (estadoActual.GetType() == typeof(Clases.Disponible));
 
         }
 
@@ -73,36 +65,49 @@ namespace PPAI
 
         public CentroDeInvestigacion getCI(RecursoTecnologico recursoTecnologico)
         {
-            foreach ( CentroDeInvestigacion ci in ObjetosCreados.CentrosInvestigacion)
-            { 
-                if (ci.esTuRecurso(this))
+            using (Contexto.Context ctx = new Contexto.Context())
+            {
+                List<CentroDeInvestigacion> lista = ctx.CentroDeInvestigacion.Include("recursoTecnologico").ToList();
+                foreach (CentroDeInvestigacion ci in lista)
                 {
-                    return ci;
+                    if (ci.esTuRecurso(this))
+                    {
+                        return ci;
+                    }
+
                 }
-                
+                return null;
             }
-            return null;
+            
         }
         
 
         public List<string> getMarcaYModelo() // DEVUELVE LA MARCA Y EL MODELO DEL RT
         {
-            return modelo.getMarcaYModelo();
+            
+                
+                return modelo.getMarcaYModelo();
+            
         }
 
         public List<string> getDatos(RecursoTecnologico recursoTecnologico)                                   //OBTIENE LOS DATOS DEL RECURSO TECNOLOGICO  Y DEVUELVE UNA LISTA QUE CONTIENE LOS DATOS DE LOS RT RESERVABLES
         {
-            List<string> listaDatosRTReservables = new List<string>();
-            listaDatosRTReservables.Add(getNumeroInventario().ToString());
-            List<string> listaModeloYMarca = getMarcaYModelo();
-            foreach (string str in listaModeloYMarca)
-            {
-                listaDatosRTReservables.Add(str);
-            }
-            listaDatosRTReservables.Add(cambioEstadoActual.getEstado());
+            
+                List<string> listaDatosRTReservables = new List<string>();
+                listaDatosRTReservables.Add(getNumeroInventario().ToString());
 
-            return listaDatosRTReservables;  
+                
+                List<string> listaModeloYMarca = getMarcaYModelo();
+                
 
+                foreach (string str in listaModeloYMarca)
+                {
+                    listaDatosRTReservables.Add(str);
+                }
+                listaDatosRTReservables.Add(estadoActual.Nombre.ToString());
+
+                return listaDatosRTReservables;
+            
         }
 
         public bool sosRT(int numeroRT)                                                    //VERIFICA QUE ES EL RT ENVIADO POR PARAMETRO              
@@ -124,17 +129,22 @@ namespace PPAI
 
         public List<List<string>> obtenerTurnos()                                                       //DEVUELVE LISTA CON LOS TURNOS DEL RT POSTERIORES A LA FECHA ACTUAL 
         {
-            List<List<string>> listaDatosTurnos = new List<List<string>>();
-            foreach (Turno turno in this.turnos)
+            using (Contexto.Context ctx = new Contexto.Context())
             {
-                if (turno.esPosteriorALaFecha())
+                List<List<string>> listaDatosTurnos = new List<List<string>>();
+                foreach (Turno turno in this.turnos)
                 {
-                    listaDatosTurnos.Add(turno.getTurno()) ;
-                }
-                
-            }
+                    Turno turnoFull = ctx.Turnos.Include("cambioEstadoTurno").Where(x=>x.id == turno.id).FirstOrDefault();
+                    if (turnoFull.esPosteriorALaFecha())
+                    {
+                        listaDatosTurnos.Add(turnoFull.getTurno());
+                    }
 
-            return listaDatosTurnos;
+                }
+
+                return listaDatosTurnos;
+            }
+            
 
         }
 
@@ -151,6 +161,7 @@ namespace PPAI
             return null;
         }
 
+        //estado a asignar se puede ir
         public void reservar(Turno turnoSeleccionado, Estado estadoAAsignar, PersonalCientifico cientificoLogueado, DateTime date)      //CAMBIA EL ESTADO DEL TURNO SELECCIONADO A RESERVADO Y LO ASIGNA AL CENTRO DE INVESTIGACION
         {
             turnoSeleccionado.reservar(date);
