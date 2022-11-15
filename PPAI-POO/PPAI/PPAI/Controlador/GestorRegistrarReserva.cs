@@ -126,6 +126,7 @@ namespace PPAI
         {
             using (var ctx = new Contexto.Context())
             {
+                //NO DEJAR EN BLANCO SOY BOLUDO
                 var CI = ctx.CentroDeInvestigacion.Include("recursoTecnologico").Include("").ToList();
 
                 foreach (CentroDeInvestigacion CENTRO in CI)

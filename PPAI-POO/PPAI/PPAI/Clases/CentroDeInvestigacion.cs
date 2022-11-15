@@ -50,14 +50,14 @@ namespace PPAI
             {
                 foreach (RecursoTecnologico recursoTecnologico in recursoTecnologico)
                 {
-                    RecursoTecnologico rt1 = ctx.RecursosTecnologicos.Include("Modelo").Include("TipoRecursoTecnologico").Include("cambioEstadoActual").Where(x=>x.id == recursoTecnologico.id).FirstOrDefault();
+                    RecursoTecnologico rt1 = ctx.RecursosTecnologicos.Include("estadoActual").Include("Modelo").Include("TipoRecursoTecnologico").Where(x=>x.id == recursoTecnologico.id).FirstOrDefault();
                     if (rt1.esTuTipo(tipoRTSeleccionado))
                     {
-                        if (recursoTecnologico.esActivo())
+                        if (rt1.esActivo())
                         {
                             List<string> datos = new List<string>();
                             datos.Add(this.nombre);
-                            foreach (string datosrt in recursoTecnologico.getDatos(recursoTecnologico))
+                            foreach (string datosrt in rt1.getDatos(recursoTecnologico))
                             {
                                 datos.Add(datosrt);
                             }

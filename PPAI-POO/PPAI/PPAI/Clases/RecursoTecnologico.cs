@@ -22,13 +22,14 @@ namespace PPAI
 
         //CONSTRUCTOR DE LA CLASE
 
-        public RecursoTecnologico(int numeroRT, TipoRecursoTecnologico tipoRecursoTecnologico, Modelo modelo, List<CambioEstadoRT> cambioEstadoRT, List<Turno> turnos)
+        public RecursoTecnologico(int numeroRT, TipoRecursoTecnologico tipoRecursoTecnologico, Modelo modelo, List<CambioEstadoRT> cambioEstadoRT, List<Turno> turnos, Estado estadoActual)
         {
             this.numeroRT = numeroRT;
             this.tipoRecursoTecnologico = tipoRecursoTecnologico;
             this.modelo = modelo;
             this.cambioEstadoRT = cambioEstadoRT;
             this.turnos = turnos.ToList();
+            this.estadoActual = estadoActual;
         }
 
         public RecursoTecnologico() { }
@@ -40,6 +41,7 @@ namespace PPAI
         public Modelo Modelo { get => modelo; set => modelo = value; }
         public List<CambioEstadoRT> CambioEstadoRT { get => cambioEstadoRT; set => cambioEstadoRT = value; }
         public List<Turno> Turnos { get => turnos; set => turnos = value; }
+        public Estado EstadoActual{ get => estadoActual; set => estadoActual = value; }
 
         public bool esTuTipo(TipoRecursoTecnologico tipoRTSeleccionado) //VERIFICA SI ES DEL TIPO ENVIADO POR PARAMETRO
         {
@@ -104,7 +106,7 @@ namespace PPAI
                 {
                     listaDatosRTReservables.Add(str);
                 }
-                listaDatosRTReservables.Add(estadoActual.Nombre.ToString());
+                listaDatosRTReservables.Add(estadoActual.GetType().ToString());
 
                 return listaDatosRTReservables;
             

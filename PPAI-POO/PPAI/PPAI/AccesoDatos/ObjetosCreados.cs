@@ -67,12 +67,13 @@ namespace PPAI.AccesoDatos
         public static Disponible estado1 = new Disponible();
         public static Disponible estado2 = new Disponible();
         public static Disponible estado3 = new Disponible();
-        public static Disponible estado4 = new Disponible();
+        public static Reservado estado4 = new Reservado();
         public static Disponible estado5 = new Disponible();
         public static Disponible estado6 = new Disponible();
         public static Disponible estado7 = new Disponible();
         public static Disponible estado8 = new Disponible();
         public static Disponible estado9 = new Disponible();
+
         public static Disponible estado10 = new Disponible();
         public static Disponible estado11 = new Disponible();
         public static Disponible estado12 = new Disponible();
@@ -168,18 +169,18 @@ namespace PPAI.AccesoDatos
 
 
         //recursos tecnologicos
-        public static RecursoTecnologico RT1 = new RecursoTecnologico(100, tipoRT1, modelo1, listaCambioEstadoRT1.ToList(), Turnos);
-        public static RecursoTecnologico RT2 = new RecursoTecnologico(101, tipoRT2, modelo2, listaCambioEstadoRT2.ToList(), Turnos);
-        public static RecursoTecnologico RT3 = new RecursoTecnologico(102, tipoRT3, modelo3, listaCambioEstadoRT3.ToList(), Turnos);
-        public static RecursoTecnologico RT4 = new RecursoTecnologico(103, tipoRT4, modelo4, listaCambioEstadoRT1.ToList(), Turnos);
-        public static RecursoTecnologico RT5 = new RecursoTecnologico(104, tipoRT1, modelo5, listaCambioEstadoRT2.ToList(), Turnos);
-        public static RecursoTecnologico RT6 = new RecursoTecnologico(105, tipoRT2, modelo6, listaCambioEstadoRT3.ToList(), Turnos);
-        public static RecursoTecnologico RT7 = new RecursoTecnologico(104, tipoRT3, modelo7, listaCambioEstadoRT4.ToList(), Turnos);
-        public static RecursoTecnologico RT8 = new RecursoTecnologico(105, tipoRT4, modelo8, listaCambioEstadoRT5.ToList(), Turnos);
-        public static RecursoTecnologico RT9 = new RecursoTecnologico(104, tipoRT1, modelo9, listaCambioEstadoRT4.ToList(), Turnos);
-        public static RecursoTecnologico RT10 = new RecursoTecnologico(105, tipoRT2, modelo10, listaCambioEstadoRT5.ToList(), Turnos);
-        public static RecursoTecnologico RT11 = new RecursoTecnologico(104, tipoRT3, modelo11, listaCambioEstadoRT4.ToList(), Turnos);
-        public static RecursoTecnologico RT12 = new RecursoTecnologico(105, tipoRT4, modelo12, listaCambioEstadoRT5.ToList(), Turnos);
+        public static RecursoTecnologico RT1 = new RecursoTecnologico(100, tipoRT1, modelo1, listaCambioEstadoRT1.ToList(), Turnos, estado3);
+        public static RecursoTecnologico RT2 = new RecursoTecnologico(101, tipoRT2, modelo2, listaCambioEstadoRT2.ToList(), Turnos, estado3);
+        public static RecursoTecnologico RT3 = new RecursoTecnologico(102, tipoRT3, modelo3, listaCambioEstadoRT3.ToList(), Turnos, estado3);
+        public static RecursoTecnologico RT4 = new RecursoTecnologico(103, tipoRT4, modelo4, listaCambioEstadoRT1.ToList(), Turnos, estado3);
+        public static RecursoTecnologico RT5 = new RecursoTecnologico(104, tipoRT1, modelo5, listaCambioEstadoRT2.ToList(), Turnos, estado3);
+        public static RecursoTecnologico RT6 = new RecursoTecnologico(105, tipoRT2, modelo6, listaCambioEstadoRT3.ToList(), Turnos, estado3);
+        public static RecursoTecnologico RT7 = new RecursoTecnologico(104, tipoRT3, modelo7, listaCambioEstadoRT4.ToList(), Turnos, estado3);
+        public static RecursoTecnologico RT8 = new RecursoTecnologico(105, tipoRT4, modelo8, listaCambioEstadoRT5.ToList(), Turnos, estado3);
+        public static RecursoTecnologico RT9 = new RecursoTecnologico(104, tipoRT1, modelo9, listaCambioEstadoRT4.ToList(), Turnos, estado3);
+        public static RecursoTecnologico RT10 = new RecursoTecnologico(105, tipoRT2, modelo10, listaCambioEstadoRT5.ToList(), Turnos, estado3);
+        public static RecursoTecnologico RT11 = new RecursoTecnologico(104, tipoRT3, modelo11, listaCambioEstadoRT4.ToList(), Turnos, estado3);
+        public static RecursoTecnologico RT12 = new RecursoTecnologico(105, tipoRT4, modelo12, listaCambioEstadoRT5.ToList(), Turnos, estado3);
 
         public static List<RecursoTecnologico> Recursos = new List<RecursoTecnologico> { RT1, RT2, RT3, RT4, RT5, RT6, RT7, RT8, RT9, RT10, RT11, RT12 };
 
@@ -237,9 +238,9 @@ namespace PPAI.AccesoDatos
                     ctx.Marcas.Add(item);
                     ctx.SaveChanges();
                 }
-                foreach (Disponible item in Estados)
+                foreach (Estado item in Estados)
                 {
-                    ctx.Disponibles.Add(item);
+                    ctx.Estados.Add(item);
                     ctx.SaveChanges();
                 }
                 

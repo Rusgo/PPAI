@@ -11,7 +11,7 @@ namespace PPAI.Contexto
 {
     public class Context : DbContext
     {
-        public Context() : base("Data Source=200.69.137.167,11333;Initial Catalog=DSI_3K1_grupo7;User ID=DSI_3K1_grupo7;Password=..DSI_3K1_grupo7?")
+        public Context() : base("Data Source=DESKTOP-MA4HMUC\\SQLEXPRESS;Initial Catalog=2;Integrated Security=True")
         {
             Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
 
@@ -49,7 +49,7 @@ namespace PPAI.Contexto
 
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            modelBuilder.Entity<Turno>().HasMany(x => x.CambioEstadoTurno).WithMany().Map(M=>M.ToTable("Intermedia"));
+            modelBuilder.Entity<Turno>().HasMany(x => x.CambioEstadoTurno).WithMany().Map(M=>M.ToTable("turnoXcet"));
             modelBuilder.Entity<RecursoTecnologico>().HasMany(x => x.Turnos).WithMany().Map(M => M.ToTable("IntermediaRTxTurnos"));
             modelBuilder.Entity<RecursoTecnologico>().HasMany(x => x.CambioEstadoRT).WithMany().Map(M => M.ToTable("IntermediaRTxcert"));
 
