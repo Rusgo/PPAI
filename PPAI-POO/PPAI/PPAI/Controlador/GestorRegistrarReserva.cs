@@ -127,7 +127,7 @@ namespace PPAI
             using (var ctx = new Contexto.Context())
             {
                 //NO DEJAR EN BLANCO SOY BOLUDO
-                var CI = ctx.CentroDeInvestigacion.Include("recursoTecnologico").Include("").ToList();
+                List<CentroDeInvestigacion> CI = ctx.CentroDeInvestigacion.Include("recursoTecnologico").Include("cientificos").ToList();
 
                 foreach (CentroDeInvestigacion CENTRO in CI)
                 {
@@ -137,7 +137,7 @@ namespace PPAI
                         {
                             if (rt.sosRT(numeroRT))
                             {
-                                RecursoTecnologico rtFull = ctx.RecursosTecnologicos.Include("TipoRecursoTecnologico").Include("cambioEstadoRT").Include("turnos").Where(x => x.id == rt.id).FirstOrDefault();
+                                RecursoTecnologico rtFull = ctx.RecursosTecnologicos.Include("TipoRecursoTecnologico").Include("cambioEstadoRT").Include("turnos").Include("modelo").Where(x => x.id == rt.id).FirstOrDefault();
                                 this.rtSeleccionado = rtFull;
                                 this.ciDelRTSeleccionado = CENTRO;
                                 break;
@@ -159,8 +159,9 @@ namespace PPAI
         {
             using (var ctx = new Contexto.Context())
             {
-                var sesionActual = ctx.Sesiones.Include("usuario").Where(x => x.FechaHoraFin == null).FirstOrDefault();
-                cientificoLogueado = this.SesionActual.getCientifico();
+                DateTime d = DateTime.Parse("01/01/1900");
+                Sesion sesionActual = ctx.Sesiones.Include("usuario").Where(x => x.FechaHoraFin == d).FirstOrDefault();
+                cientificoLogueado = sesionActual.getCientifico();
                 pertenenciaDeCientificoACI = rtSeleccionado.perteneceAEsteCI(cientificoLogueado, ciDelRTSeleccionado);
             }
 
@@ -195,8 +196,8 @@ namespace PPAI
                 int contador = 0;
                 for (int fila = 0; fila < listaDatosTurnos.Count; fila++)
                 {
-
-                    if (dia.Date == (DateTime.Parse(listaDatosTurnos[fila][0])).Date && listaDatosTurnos[fila][2].ToString() == "Disponible")
+                    //habia un .date
+                    if (dia.Date == (DateTime.Parse(listaDatosTurnos[fila][0])).Date && listaDatosTurnos[fila][2].ToString() == "PPAI.Clases.Disponible")
                     {
                         contador += 1;              //POR CADA TURNO SE FIJA SI COINCIDE CON EL DIA Y SI ES DISPONIBLE Y AUMENTA EL CONTADOR DEL DIA
                     }
@@ -297,6 +298,7 @@ namespace PPAI
 
         public void finCU()     //FINALIZA EL CU
         {
+           
             pantallaRegistrarReserva.Dispose();
         }
     }

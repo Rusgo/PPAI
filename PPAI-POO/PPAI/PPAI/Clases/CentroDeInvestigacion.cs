@@ -41,7 +41,14 @@ namespace PPAI
 
         public  bool esTuRecurso( RecursoTecnologico rt) // VERIFICA QUE EL RT PERTENECE AL CI
         {
-            return recursoTecnologico.Contains(rt);
+            foreach (RecursoTecnologico r in recursoTecnologico)
+            {
+                if (r.id == rt.id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public List<List<string>> tieneRTDelTipoRTSeleccionado(TipoRecursoTecnologico tipoRTSeleccionado, List<List<string>> s) //BUSCA SOBRE SUS RT LOS QUE CORRESPONDEN AL TIPORTSELECCIONADO Y SEAN ACTIVOS
@@ -86,13 +93,19 @@ namespace PPAI
 
         public void asignarTurno(Turno turno, PersonalCientifico cientificoLogueado)        //ASIGNA EL TURNO A LA ASIGNACION DEL CIENTIFICO LOGUEADO
         {
-            foreach (AsignacionCientificoDelCI asignacion in this.Cientificos)
+            using (Contexto.Context ctx = new Contexto.Context())
             {
-                if(asignacion.PersonalCientifico == cientificoLogueado)
+               
+                foreach (AsignacionCientificoDelCI asignacion in this.Cientificos)
                 {
-                    asignacion.asignarTurno(turno);
+                    AsignacionCientificoDelCI asigFull = ctx.AsignacionCientificoDelCI.Include("PersonalCientifico").Include("turnos").FirstOrDefault();
+                    if (asigFull.PersonalCientifico.id == cientificoLogueado.id)
+                    {
+                        asignacion.asignarTurno(turno);
+                    }
                 }
             }
+            
         }
     }
 

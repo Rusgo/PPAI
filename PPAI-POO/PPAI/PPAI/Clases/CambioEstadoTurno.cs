@@ -46,7 +46,7 @@ namespace PPAI
 
         public bool esActual()  // VERIFICA QUE ES EL CAMBIO DE ESTADO ACTUAL (ES DECIR NO TIENE FECHA HASTA)
         {
-            return (this.fechaHoraHasta == DateTime.MinValue);
+            return (this.fechaHoraHasta == DateTime.Parse("01/01/1900"));
         }
 
         public string getEstado() // DEVUELVE EL NOMBRE DEL ESTADO

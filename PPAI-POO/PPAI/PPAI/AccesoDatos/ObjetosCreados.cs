@@ -138,25 +138,25 @@ namespace PPAI.AccesoDatos
 
         public static List<CambioEstadoTurno> CambiosEstadoTurnos = new List<CambioEstadoTurno> { cambioEstado1turno1, cambioEstado2turno1, cambioEstado1turno2, cambioEstado2turno2, cambioEstado1turno3, cambioEstado2turno3, cambioEstado1turno4, cambioEstado2turno4, cambioEstado1turno5, cambioEstado2turno5 };
 
-        public static List<CambioEstadoTurno> listaCambioEstadoTurno1 = new List<CambioEstadoTurno> { cambioEstado1turno1};
-        public static List<CambioEstadoTurno> listaCambioEstadoTurno2 = new List<CambioEstadoTurno> { cambioEstado1turno2};
-        public static List<CambioEstadoTurno> listaCambioEstadoTurno3 = new List<CambioEstadoTurno> { cambioEstado1turno3};
-        public static List<CambioEstadoTurno> listaCambioEstadoTurno4 = new List<CambioEstadoTurno> { cambioEstado1turno4 };
-        public static List<CambioEstadoTurno> listaCambioEstadoTurno5 = new List<CambioEstadoTurno> { cambioEstado1turno5};
+        public static List<CambioEstadoTurno> listaCambioEstadoTurno1 = new List<CambioEstadoTurno> { cambioEstado1turno1, cambioEstado2turno1 };
+        public static List<CambioEstadoTurno> listaCambioEstadoTurno2 = new List<CambioEstadoTurno> { cambioEstado1turno2,};
+        public static List<CambioEstadoTurno> listaCambioEstadoTurno3 = new List<CambioEstadoTurno> { cambioEstado1turno3,};
+        public static List<CambioEstadoTurno> listaCambioEstadoTurno4 = new List<CambioEstadoTurno> { cambioEstado1turno4, };
+        public static List<CambioEstadoTurno> listaCambioEstadoTurno5 = new List<CambioEstadoTurno> { cambioEstado1turno5,};
 
         //turnos                                                                                                                                             
-        public static Turno turno1 = new Turno(DateTime.Parse("05/05/2022"), "Lunes", DateTime.Parse("04/07/2022 08:30"), DateTime.Parse("04 / 07 / 2022 09:30"), listaCambioEstadoTurno1.ToList(), estado1);
-        public static Turno turno2 = new Turno(DateTime.Parse("05/05/2022"), "Martes", DateTime.Parse("05/07/2022 08:30"), DateTime.Parse("05 / 07 / 2022 09:30"), listaCambioEstadoTurno2.ToList(), estado1);
-        public static Turno turno3 = new Turno(DateTime.Parse("05/05/2022"), "Miercoles", DateTime.Parse("06/07/2022 11:30"), DateTime.Parse("06 / 07 / 2022 14:30"), listaCambioEstadoTurno3.ToList(), estado1);
-        public static Turno turno4 = new Turno(DateTime.Parse("05/05/2022"), "Jueves", DateTime.Parse("07/07/2022 08:30"), DateTime.Parse("07 / 07 / 2022 09:30"), listaCambioEstadoTurno1.ToList(), estado1);
-        public static Turno turno5 = new Turno(DateTime.Parse("05/05/2022"), "Viernes", DateTime.Parse("08/07/2022 18:30"), DateTime.Parse("08 / 07 / 2022 20:30"), listaCambioEstadoTurno2.ToList(), estado1);
-        public static Turno turno6 = new Turno(DateTime.Parse("05/05/2022"), "Lunes", DateTime.Parse("11/07/2022 08:30"), DateTime.Parse("11 / 07 / 2022 09:30"), listaCambioEstadoTurno3.ToList(), estado1);
-        public static Turno turno7 = new Turno(DateTime.Parse("05/05/2022"), "Martes", DateTime.Parse("04/07/2022 10:30"), DateTime.Parse("04 / 07 / 2022 11:30"), listaCambioEstadoTurno2.ToList(), estado1);
-        public static Turno turno8 = new Turno(DateTime.Parse("05/05/2022"), "Miercoles", DateTime.Parse("04/07/ 2022 12:30"), DateTime.Parse("04 / 07 / 2022 13:30"), listaCambioEstadoTurno3.ToList(), estado1);
-        public static Turno turno9 = new Turno(DateTime.Parse("05/05/2022"), "Jueves", DateTime.Parse("08/07/2022 08:30"), DateTime.Parse("08 / 07 / 2022 09:30"), listaCambioEstadoTurno4.ToList(), estado1);
-        public static Turno turno10 = new Turno(DateTime.Parse("05/05/2022"), "Viernes", DateTime.Parse("14 / 07 / 2022 14:30"), DateTime.Parse("14 / 07 / 2022 16:30"), listaCambioEstadoTurno5.ToList(), estado1);
-        public static Turno turno11 = new Turno(DateTime.Parse("05/05/2022"), "Lunes", DateTime.Parse("26 / 07 / 2022 13:30"), DateTime.Parse("26 / 07 / 2022 15:30"), listaCambioEstadoTurno4.ToList(), estado1);
-        public static Turno turno12 = new Turno(DateTime.Parse("05/05/2022"), "Martes", DateTime.Parse("09 / 07 / 2022 17:30"), DateTime.Parse("09 / 07 / 2022 19:30"), listaCambioEstadoTurno5.ToList(), estado1);
+        public static Turno turno1 = new Turno(DateTime.Parse("05/05/2022"), "Lunes", DateTime.Parse("04/11/2022 08:30"), DateTime.Parse("04 / 11 / 2022 09:30"), listaCambioEstadoTurno1.ToList(), estado1);
+        public static Turno turno2 = new Turno(DateTime.Parse("05/05/2022"), "Martes", DateTime.Parse("05/11/2022 08:30"), DateTime.Parse("05 / 11 / 2022 09:30"), listaCambioEstadoTurno2.ToList(), estado1);
+        public static Turno turno3 = new Turno(DateTime.Parse("05/05/2022"), "Miercoles", DateTime.Parse("06/11/2022 11:30"), DateTime.Parse("06 / 11 / 2022 14:30"), listaCambioEstadoTurno3.ToList(), estado1);
+        public static Turno turno4 = new Turno(DateTime.Parse("05/05/2022"), "Jueves", DateTime.Parse("07/11/2022 08:30"), DateTime.Parse("07 / 11 / 2022 09:30"), listaCambioEstadoTurno1.ToList(), estado1);
+        public static Turno turno5 = new Turno(DateTime.Parse("05/05/2022"), "Viernes", DateTime.Parse("08/11/2022 18:30"), DateTime.Parse("08 / 11 / 2022 20:30"), listaCambioEstadoTurno2.ToList(), estado1);
+        public static Turno turno6 = new Turno(DateTime.Parse("05/05/2022"), "Lunes", DateTime.Parse("11/11/2022 08:30"), DateTime.Parse("11 / 11 / 2022 09:30"), listaCambioEstadoTurno3.ToList(), estado1);
+        public static Turno turno7 = new Turno(DateTime.Parse("05/05/2022"), "Martes", DateTime.Parse("04/11/2022 10:30"), DateTime.Parse("04 / 11 / 2022 11:30"), listaCambioEstadoTurno2.ToList(), estado1);
+        public static Turno turno8 = new Turno(DateTime.Parse("05/05/2022"), "Miercoles", DateTime.Parse("04/11/ 2022 12:30"), DateTime.Parse("04 / 11 / 2022 13:30"), listaCambioEstadoTurno3.ToList(), estado1);
+        public static Turno turno9 = new Turno(DateTime.Parse("05/05/2022"), "Jueves", DateTime.Parse("08/11/2022 08:30"), DateTime.Parse("08 / 11 / 2022 09:30"), listaCambioEstadoTurno4.ToList(), estado1);
+        public static Turno turno10 = new Turno(DateTime.Parse("05/05/2022"), "Viernes", DateTime.Parse("14 / 11 / 2022 14:30"), DateTime.Parse("14 / 11 / 2022 16:30"), listaCambioEstadoTurno5.ToList(), estado1);
+        public static Turno turno11 = new Turno(DateTime.Parse("05/05/2022"), "Lunes", DateTime.Parse("26 / 11 / 2022 13:30"), DateTime.Parse("26 / 11 / 2022 15:30"), listaCambioEstadoTurno4.ToList(), estado1);
+        public static Turno turno12 = new Turno(DateTime.Parse("05/05/2022"), "Martes", DateTime.Parse("09 / 11 / 2022 17:30"), DateTime.Parse("09 / 11 / 2022 19:30"), listaCambioEstadoTurno5.ToList(), estado1);
 
         public static List<Turno> Turnos = new List<Turno> {turno1, turno2, turno3, turno4, turno5, turno6, turno7, turno8, turno9, turno10, turno11, turno12};
 

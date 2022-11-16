@@ -16,16 +16,22 @@ namespace PPAI
             private DateTime fechaHoraFin;
             private Usuario usuario;
 
-        //CONSTRUCTOR DE LA CLASE
+        //CONSTRUCTOR DE LA CLASE 01/01/1900
 
-            public Sesion(DateTime fechaHoraInicio, Usuario usuario, [Optional] DateTime fechaHoraFin)
+        public Sesion(DateTime fechaHoraInicio, Usuario usuario, DateTime fechaHoraFin)
             {
                 this.fechaHoraInicio = fechaHoraInicio;
                 this.fechaHoraFin = fechaHoraFin;
                 this.usuario = usuario;
             }
+        public Sesion(DateTime fechaHoraInicio, Usuario usuario)
+        {
+            this.fechaHoraInicio = fechaHoraInicio;
+            this.fechaHoraFin = DateTime.Parse("01/01/1900");
+            this.usuario = usuario;
+        }
 
-            public Sesion() { }
+        public Sesion() { }
 
         //GETTERS Y SETTERS
             public int id { get => Id; set => Id = value; }

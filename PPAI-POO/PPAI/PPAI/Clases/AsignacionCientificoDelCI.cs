@@ -62,7 +62,16 @@ namespace PPAI
 
         public void asignarTurno(Turno turno)  //ASIGNA EL TURNO ENVIADO POR PARAMETRO A LA ASIGNACION
         {
-            this.turnos.Add(turno);
+            if (turnos == null)
+            {
+                turnos = new List<Turno>();
+                this.turnos.Add(turno);
+            }
+            else
+            {
+                this.turnos.Add(turno);
+            }
+            
         }
     }
 

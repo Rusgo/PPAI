@@ -71,7 +71,7 @@ namespace PPAI
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
-
+            //ObjetosCreados.cargarDatos();
             //MessageBox.Show("");
             
             if (txt_usuario.Text == "")
@@ -91,12 +91,20 @@ namespace PPAI
 
             if (resultado.Item1)
             {
-                CU_Cientifico RV = new CU_Cientifico();
-
-                this.sesion = ObjetosCreados.sesionActual; //SESION CREADA
-
-                RV.ShowDialog();
-                Close();
+               
+                using (Contexto.Context ctx = new   Contexto.Context())
+                {
+                    Usuario usuarioActual1 = ctx.Usuario.Where(x => x.UsuarioNombre == txt_usuario.Text && x.Contraseña == txt_password.Text).FirstOrDefault();
+                    Sesion sesionActual = new Sesion(DateTime.Now, usuarioActual1);
+                    CU_Cientifico RV = new CU_Cientifico();
+                    this.sesion = sesionActual; //SESION CREADA
+                    //SUBIENDING
+                    ctx.Sesiones.Add(sesionActual);
+                    ctx.SaveChanges();
+                    RV.ShowDialog();
+                    Close();
+                }
+                
             }
             else
             {

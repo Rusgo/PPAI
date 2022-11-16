@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -69,7 +70,7 @@ namespace PPAI
         {
             using (Contexto.Context ctx = new Contexto.Context())
             {
-                List<CentroDeInvestigacion> lista = ctx.CentroDeInvestigacion.Include("recursoTecnologico").ToList();
+                List<CentroDeInvestigacion> lista = ctx.CentroDeInvestigacion.Include("recursoTecnologico").Include("cientificos").ToList();
                 foreach (CentroDeInvestigacion ci in lista)
                 {
                     if (ci.esTuRecurso(this))
@@ -136,7 +137,7 @@ namespace PPAI
                 List<List<string>> listaDatosTurnos = new List<List<string>>();
                 foreach (Turno turno in this.turnos)
                 {
-                    Turno turnoFull = ctx.Turnos.Include("cambioEstadoTurno").Where(x=>x.id == turno.id).FirstOrDefault();
+                    Turno turnoFull = ctx.Turnos.Include("cambioEstadoTurno").Include("estadoActual").Where(x=>x.id == turno.id).FirstOrDefault();
                     if (turnoFull.esPosteriorALaFecha())
                     {
                         listaDatosTurnos.Add(turnoFull.getTurno());
@@ -166,9 +167,20 @@ namespace PPAI
         //estado a asignar se puede ir
         public void reservar(Turno turnoSeleccionado, Estado estadoAAsignar, PersonalCientifico cientificoLogueado, DateTime date)      //CAMBIA EL ESTADO DEL TURNO SELECCIONADO A RESERVADO Y LO ASIGNA AL CENTRO DE INVESTIGACION
         {
-            turnoSeleccionado.reservar(date);
-            CentroDeInvestigacion ci = getCI(this);
-            ci.asignarTurno(turnoSeleccionado, cientificoLogueado);
+            using (Contexto.Context ctx = new Contexto.Context())
+            {
+                Turno tFull = ctx.Turnos.Include("cambioEstadoTurno").Include("estadoActual").Where(x => x.id == turnoSeleccionado.id).FirstOrDefault();
+                tFull.reservar(date);
+                CentroDeInvestigacion ci = getCI(this);
+                
+                ci.asignarTurno(turnoSeleccionado, cientificoLogueado);
+               // ctx.Entry(ci).State = EntityState.Modified;
+               // ctx.Entry(ci.Cientificos).State = EntityState.Modified;
+               // ctx.Entry(ci.recursoTecnologico).State = EntityState.Modified;
+                ctx.Entry(tFull).State = EntityState.Modified;
+                ctx.SaveChanges();
+            }
+            
         }
 
     }

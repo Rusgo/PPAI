@@ -261,7 +261,7 @@ namespace PPAI.Forms
                 dg_turno.Rows[fila].Cells[2].Value = listaDatosTurnos[fila][2].ToString();
                 dg_turno.Rows[fila].Cells[3].Value = false;
 
-                if (listaDatosTurnos[fila][2].ToString() == "Disponible")
+                if (listaDatosTurnos[fila][2].ToString() == "PPAI.Clases.Disponible")
                 {
                     dg_turno.Rows[fila].Cells[2].Style.BackColor = Color.FromArgb(21, 171, 206);
                 }
@@ -306,7 +306,7 @@ namespace PPAI.Forms
                 }
                 else
                 {
-                    if (dg_turno.Rows[i].Cells[3].Value.ToString() == "True" &&  dg_turno.Rows[i].Cells[2].Value.ToString() == "Disponible")
+                    if (dg_turno.Rows[i].Cells[3].Value.ToString() == "True" &&  dg_turno.Rows[i].Cells[2].Value.ToString() == "PPAI.Clases.Disponible")
                     {
                         contadorSelecciones += 1;
                         turnoSeleccionado = (dg_turno.Rows[i].Cells[0].Value.ToString(), dg_turno.Rows[i].Cells[1].Value.ToString());

@@ -51,11 +51,11 @@ namespace PPAI
             foreach (CambioEstadoTurno cet in cambioEstadoTurno)
             {
                 string nombreEstado = "";
-                if (cet.esActual())
+                if (estadoActual.GetType() == typeof(Clases.Disponible))
                 {
                     listaDatosTurno.Add(this.fechaHoraInicio.ToString());
                     listaDatosTurno.Add(this.FechaHoraFin.ToString());
-                    nombreEstado = cet.getEstado();
+                    nombreEstado = estadoActual.ToString();
                     listaDatosTurno.Add(nombreEstado);
                 }
             }
