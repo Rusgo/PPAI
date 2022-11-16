@@ -196,7 +196,7 @@ namespace PPAI
                 int contador = 0;
                 for (int fila = 0; fila < listaDatosTurnos.Count; fila++)
                 {
-                    //habia un .date
+                    // validar que si esta vacia no haga eso
                     if (dia.Date == (DateTime.Parse(listaDatosTurnos[fila][0])).Date && listaDatosTurnos[fila][2].ToString() == "PPAI.Clases.Disponible")
                     {
                         contador += 1;              //POR CADA TURNO SE FIJA SI COINCIDE CON EL DIA Y SI ES DISPONIBLE Y AUMENTA EL CONTADOR DEL DIA
