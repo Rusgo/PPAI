@@ -160,12 +160,12 @@ namespace PPAI.AccesoDatos
 
         public static List<Turno> Turnos = new List<Turno> {turno1, turno2, turno3, turno4, turno5, turno6, turno7, turno8, turno9, turno10, turno11, turno12};
 
-        public static List<Turno> turnosAsignacion1 = new List<Turno> { turno1, turno2, turno3 };
+        public static List<Turno> turnosAsignacion1 = new List<Turno> { turno1, turno2, turno3, turno11 };
         public static List<Turno> turnosAsignacion2 = new List<Turno> { turno4, turno5, turno6 };
         public static List<Turno> turnosAsignacion3 = new List<Turno> { turno1, turno2, turno3 };
         public static List<Turno> turnosAsignacion4 = new List<Turno> { turno4, turno5, turno6 };
         public static List<Turno> turnosAsignacion5 = new List<Turno> { turno7, turno8, turno9 };
-        public static List<Turno> turnosAsignacion6 = new List<Turno> { turno10, turno11, turno12 };
+        public static List<Turno> turnosAsignacion6 = new List<Turno> { turno10, turno12 };
 
 
         //recursos tecnologicos

@@ -107,7 +107,7 @@ namespace PPAI
                 {
                     listaDatosRTReservables.Add(str);
                 }
-                listaDatosRTReservables.Add(estadoActual.GetType().ToString());
+                listaDatosRTReservables.Add(estadoActual.obtenerNombre());
 
                 return listaDatosRTReservables;
             
@@ -157,7 +157,12 @@ namespace PPAI
             {
                 if (turno.esTurno(fechaHoraInicio, fechaHoraFin))
                 {
-                    return turno;
+                    using (Contexto.Context ctx = new Contexto.Context())
+                    {
+                        Turno turnoFull = ctx.Turnos.Include("estadoActual").Include("cambioEstadoTurno").Where(x => x.id == turno.id).FirstOrDefault();
+                        return turnoFull;
+                    }
+                    
                 }
                 
             }
@@ -167,20 +172,33 @@ namespace PPAI
         //estado a asignar se puede ir
         public void reservar(Turno turnoSeleccionado, Estado estadoAAsignar, PersonalCientifico cientificoLogueado, DateTime date)      //CAMBIA EL ESTADO DEL TURNO SELECCIONADO A RESERVADO Y LO ASIGNA AL CENTRO DE INVESTIGACION
         {
+            // using (Contexto.Context ctx = new Contexto.Context())
+            //{
+            /*
+                 turnoSeleccionado.reservar(date);
+                 CentroDeInvestigacion ci = getCI(this);
+
+                 ci.asignarTurno(turnoSeleccionado, cientificoLogueado);
+             using (var ctx = new Contexto.Context())
+             {
+                 ctx.Entry(turnoSeleccionado).State = EntityState.Modified;
+                 ctx.SaveChanges();
+             }
+             //}*/
             using (Contexto.Context ctx = new Contexto.Context())
             {
                 Turno tFull = ctx.Turnos.Include("cambioEstadoTurno").Include("estadoActual").Where(x => x.id == turnoSeleccionado.id).FirstOrDefault();
                 tFull.reservar(date);
                 CentroDeInvestigacion ci = getCI(this);
-                
+
                 ci.asignarTurno(turnoSeleccionado, cientificoLogueado);
-               // ctx.Entry(ci).State = EntityState.Modified;
-               // ctx.Entry(ci.Cientificos).State = EntityState.Modified;
-               // ctx.Entry(ci.recursoTecnologico).State = EntityState.Modified;
+                // ctx.Entry(ci).State = EntityState.Modified;
+                // ctx.Entry(ci.Cientificos).State = EntityState.Modified;
+                // ctx.Entry(ci.recursoTecnologico).State = EntityState.Modified;
                 ctx.Entry(tFull).State = EntityState.Modified;
                 ctx.SaveChanges();
             }
-            
+
         }
 
     }

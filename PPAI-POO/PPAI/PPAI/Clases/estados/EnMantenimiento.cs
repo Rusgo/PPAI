@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace PPAI.Clases
 {
-    public class Reservado:Estado
+    public class EnMantenimiento : Estado
     {
-
-        public override void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date)
-        {
-            throw new NotImplementedException();
-        }
         public override Estado crearProximoEstado()
         {
             throw new NotImplementedException();
@@ -20,7 +15,12 @@ namespace PPAI.Clases
 
         public override string obtenerNombre()
         {
-            return "Reservado";
+            return "En mantenimiento";
+        }
+
+        public override void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date)
+        {
+            throw new NotImplementedException();
         }
     }
 }

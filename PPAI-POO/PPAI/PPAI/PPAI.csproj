@@ -162,10 +162,13 @@
     <Compile Include="Clases\CambioEstadoRT.cs" />
     <Compile Include="Clases\CambioEstadoTurno.cs" />
     <Compile Include="Clases\CentroDeInvestigacion.cs" />
+    <Compile Include="Clases\estados\EnMantenimiento.cs" />
     <Compile Include="Clases\estados\Disponible.cs" />
     <Compile Include="Clases\estados\Estado.cs" />
+    <Compile Include="Clases\estados\IngresadoEnMantenimientoCorrectivo.cs" />
     <Compile Include="Clases\InterfazWhatsApp.cs" />
     <Compile Include="Clases\estados\Reservado.cs" />
+    <Compile Include="Clases\estados\PendienteConfirmacion.cs" />
     <Compile Include="Contexto\Context.cs" />
     <Compile Include="Controlador\GestorRegistrarReserva.cs" />
     <Compile Include="Clases\InterfazMail.cs" />

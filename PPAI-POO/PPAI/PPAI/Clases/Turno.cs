@@ -55,7 +55,7 @@ namespace PPAI
                 {
                     listaDatosTurno.Add(this.fechaHoraInicio.ToString());
                     listaDatosTurno.Add(this.FechaHoraFin.ToString());
-                    nombreEstado = estadoActual.ToString();
+                    nombreEstado = estadoActual.obtenerNombre();
                     listaDatosTurno.Add(nombreEstado);
                 }
             }

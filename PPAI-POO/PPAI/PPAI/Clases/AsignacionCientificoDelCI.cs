@@ -8,7 +8,7 @@ using PPAI.AccesoDatos;
 using PPAI.Forms;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-
+using System.Data.Entity;
 
 namespace PPAI
 {
@@ -66,6 +66,7 @@ namespace PPAI
             {
                 turnos = new List<Turno>();
                 this.turnos.Add(turno);
+                
             }
             else
             {

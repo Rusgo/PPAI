@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,13 +96,17 @@ namespace PPAI
         {
             using (Contexto.Context ctx = new Contexto.Context())
             {
-               
+                bool b = true;
                 foreach (AsignacionCientificoDelCI asignacion in this.Cientificos)
                 {
+                    
                     AsignacionCientificoDelCI asigFull = ctx.AsignacionCientificoDelCI.Include("PersonalCientifico").Include("turnos").FirstOrDefault();
-                    if (asigFull.PersonalCientifico.id == cientificoLogueado.id)
+                    if (asigFull.PersonalCientifico.id == cientificoLogueado.id && b)
                     {
-                        asignacion.asignarTurno(turno);
+                        asigFull.asignarTurno(turno);
+                        //ctx.Entry(asigFull).State = EntityState.Modified;
+                        //ctx.SaveChanges();
+                        b = false;
                     }
                 }
             }

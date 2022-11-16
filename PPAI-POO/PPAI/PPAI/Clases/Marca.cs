@@ -34,7 +34,14 @@ namespace PPAI
 
         public bool esTuModelo(Modelo modelo) //VERIFICA QUE EL MODELO PERTENECE A LA MARCA
         {
-            return modelos.Contains(modelo); //dudoso que funcione
+            foreach (Modelo item in modelos)
+            {
+                if (item.id == modelo.id)
+                {
+                    return true;
+                }
+            }
+            return false;   
         }
     }
 }

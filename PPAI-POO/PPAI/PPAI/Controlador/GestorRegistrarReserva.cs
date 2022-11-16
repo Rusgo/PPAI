@@ -161,6 +161,7 @@ namespace PPAI
             {
                 DateTime d = DateTime.Parse("01/01/1900");
                 Sesion sesionActual = ctx.Sesiones.Include("usuario").Where(x => x.FechaHoraFin == d).FirstOrDefault();
+                this.sesionActual = sesionActual;
                 cientificoLogueado = sesionActual.getCientifico();
                 pertenenciaDeCientificoACI = rtSeleccionado.perteneceAEsteCI(cientificoLogueado, ciDelRTSeleccionado);
             }
@@ -194,17 +195,26 @@ namespace PPAI
             foreach (DateTime dia in listaDias)
             {
                 int contador = 0;
-                for (int fila = 0; fila < listaDatosTurnos.Count; fila++)
+                if (listaDatosTurnos[0].Count > 0)
                 {
-                    // validar que si esta vacia no haga eso
-                    if (dia.Date == (DateTime.Parse(listaDatosTurnos[fila][0])).Date && listaDatosTurnos[fila][2].ToString() == "PPAI.Clases.Disponible")
+                    for (int fila = 0; fila < listaDatosTurnos.Count; fila++)
                     {
-                        contador += 1;              //POR CADA TURNO SE FIJA SI COINCIDE CON EL DIA Y SI ES DISPONIBLE Y AUMENTA EL CONTADOR DEL DIA
+                        // validar que si esta vacia no haga eso
+                        if (dia.Date == (DateTime.Parse(listaDatosTurnos[fila][0])).Date && listaDatosTurnos[fila][2].ToString() == "Disponible")
+                        {
+                            contador += 1;              //POR CADA TURNO SE FIJA SI COINCIDE CON EL DIA Y SI ES DISPONIBLE Y AUMENTA EL CONTADOR DEL DIA
+                        }
                     }
+                    listaContadores.Add(contador);
                 }
-                listaContadores.Add(contador);
+                
+                
 
             }
+            if (!(listaDatosTurnos[0].Count > 0)) { 
+            MessageBox.Show("No hay ningun turno disponible", "seleccione otro turno", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    ;}
+
             pantallaRegistrarReserva.mostrarFechas(listaDias, listaContadores);
             pantallaRegistrarReserva.solicitarSeleccionFecha();
 
@@ -292,13 +302,21 @@ namespace PPAI
             InterfazMail InterfazMail = new InterfazMail();
             InterfazMail.enviarNotificacionReserva(mailCientifico, this.rtSeleccionado, this.turnoSeleccionado, this.marcaRTSeleccionado, this.modeloRTSeleccionado);
             }
+            //CERRAMOS SESION
+            using (Contexto.Context ctx = new Contexto.Context())
+            {
+                this.sesionActual.FechaHoraFin = DateTime.Now;
+                ctx.Entry(sesionActual).State = EntityState.Modified;
+                ctx.SaveChanges();
+            }
+
             finCU();
     }
 
 
         public void finCU()     //FINALIZA EL CU
         {
-           
+            
             pantallaRegistrarReserva.Dispose();
         }
     }

@@ -50,6 +50,7 @@ namespace PPAI
         //metodos de estado Turno
         public abstract void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date);
         public abstract Estado crearProximoEstado();
+        public abstract string obtenerNombre();
 
     }
 }

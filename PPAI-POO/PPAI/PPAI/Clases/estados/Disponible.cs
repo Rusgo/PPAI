@@ -11,6 +11,7 @@ namespace PPAI.Clases
     {
         public override void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date)
         {
+
             //definir fecha hasta al ultimo ce
             buscarActual(h, date);
             //crear proximo Estado
@@ -45,5 +46,9 @@ namespace PPAI.Clases
             return CE;
         }
 
+        public override string obtenerNombre()
+        {
+            return "Disponible";
+        }
     }
 }
