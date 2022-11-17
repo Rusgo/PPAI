@@ -18,7 +18,8 @@ namespace PPAI.Clases
             return "En mantenimiento";
         }
 
-        public override void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date)
+
+        public override void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date, RecursoTecnologico rt, Turno ts, PersonalCientifico cl)
         {
             throw new NotImplementedException();
         }

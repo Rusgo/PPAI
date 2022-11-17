@@ -57,7 +57,7 @@ namespace PPAI
         public bool esActivo() //VERIFICA QUE EL RECURSO TECNOLOGICO SEA RESERVABLE (ES DECIR, QUE NO TENGA ESTADO 'DADO DE BAJA TECNICA' O 'DADO DE BAJA DEFINITIVA')
         {
             //ESTADO DISPONIBLE ES QUE ESTA ACTIVO????
-            return (estadoActual.GetType() == typeof(Clases.Disponible));
+            return true; //(estadoActual.GetType() == typeof(Clases.Disponible));
 
         }
 
@@ -66,7 +66,7 @@ namespace PPAI
             return this.numeroRT;
         }
 
-        public CentroDeInvestigacion getCI(RecursoTecnologico recursoTecnologico)
+        /*public CentroDeInvestigacion getCI(RecursoTecnologico recursoTecnologico)
         {
             using (Contexto.Context ctx = new Contexto.Context())
             {
@@ -82,7 +82,7 @@ namespace PPAI
                 return null;
             }
             
-        }
+        }*/
         
 
         public List<string> getMarcaYModelo() // DEVUELVE LA MARCA Y EL MODELO DEL RT
@@ -170,31 +170,15 @@ namespace PPAI
         }
 
         //estado a asignar se puede ir
-        public void reservar(Turno turnoSeleccionado, Estado estadoAAsignar, PersonalCientifico cientificoLogueado, DateTime date)      //CAMBIA EL ESTADO DEL TURNO SELECCIONADO A RESERVADO Y LO ASIGNA AL CENTRO DE INVESTIGACION
+        public void reservar(Turno turnoSeleccionado, PersonalCientifico cientificoLogueado, DateTime date)      //CAMBIA EL ESTADO DEL TURNO SELECCIONADO A RESERVADO Y LO ASIGNA AL CENTRO DE INVESTIGACION
         {
-            // using (Contexto.Context ctx = new Contexto.Context())
-            //{
-            /*
-                 turnoSeleccionado.reservar(date);
-                 CentroDeInvestigacion ci = getCI(this);
-
-                 ci.asignarTurno(turnoSeleccionado, cientificoLogueado);
-             using (var ctx = new Contexto.Context())
-             {
-                 ctx.Entry(turnoSeleccionado).State = EntityState.Modified;
-                 ctx.SaveChanges();
-             }
-             //}*/
+           //recuperamos los datos necesarios para trabajar con el turno
             using (Contexto.Context ctx = new Contexto.Context())
             {
                 Turno tFull = ctx.Turnos.Include("cambioEstadoTurno").Include("estadoActual").Where(x => x.id == turnoSeleccionado.id).FirstOrDefault();
-                tFull.reservar(date);
-                CentroDeInvestigacion ci = getCI(this);
-
-                ci.asignarTurno(turnoSeleccionado, cientificoLogueado);
-                // ctx.Entry(ci).State = EntityState.Modified;
-                // ctx.Entry(ci.Cientificos).State = EntityState.Modified;
-                // ctx.Entry(ci.recursoTecnologico).State = EntityState.Modified;
+                //llamamos al metodo del turno que va a invocar al metodo del estado 
+                tFull.reservar(date, this, cientificoLogueado);      
+                //guardamos cambios
                 ctx.Entry(tFull).State = EntityState.Modified;
                 ctx.SaveChanges();
             }

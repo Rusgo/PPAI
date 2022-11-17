@@ -9,7 +9,7 @@ namespace PPAI.Clases
 {
     public class Disponible:Estado
     {
-        public override void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date)
+        public override void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date, RecursoTecnologico rt,Turno ts, PersonalCientifico cl)
         {
 
             //definir fecha hasta al ultimo ce
@@ -18,12 +18,16 @@ namespace PPAI.Clases
             Estado estado = crearProximoEstado();
             //crear nuevo CE Turno
             CambioEstadoTurno ce =  crearProximoCE(date, estado);
+            //
+            CentroDeInvestigacion ci = getCI(rt);
+            ci.asignarTurno(ts, cl);
             //Agrega CE
             turno.agregarCE(ce);
             //Settear nuevo Estado
             turno.EstadoActual = estado;
 
         }
+
         public void buscarActual(List<CambioEstadoTurno> h, DateTime date)
         {
             foreach (CambioEstadoTurno ce in h)
@@ -34,6 +38,23 @@ namespace PPAI.Clases
                     break;
                 }
             }
+        }
+        public CentroDeInvestigacion getCI(RecursoTecnologico recursoTecnologico)
+        {
+            using (Contexto.Context ctx = new Contexto.Context())
+            {
+                List<CentroDeInvestigacion> lista = ctx.CentroDeInvestigacion.Include("recursoTecnologico").Include("cientificos").ToList();
+                foreach (CentroDeInvestigacion ci in lista)
+                {
+                    if (ci.esTuRecurso(recursoTecnologico))
+                    {
+                        return ci;
+                    }
+
+                }
+                return null;
+            }
+
         }
         public override Estado crearProximoEstado()
         {

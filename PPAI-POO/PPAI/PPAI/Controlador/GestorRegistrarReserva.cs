@@ -192,28 +192,36 @@ namespace PPAI
             List<int> listaContadores = new List<int>();
 
 
-            foreach (DateTime dia in listaDias)
+            for (int i = 0; i < listaDias.Count; i++)
             {
                 int contador = 0;
-                if (listaDatosTurnos[0].Count > 0)
+                if (listaDatosTurnos.Count > i)
                 {
-                    for (int fila = 0; fila < listaDatosTurnos.Count; fila++)
+                    if (listaDatosTurnos[i].Count > 0)
                     {
-                        // validar que si esta vacia no haga eso
-                        if (dia.Date == (DateTime.Parse(listaDatosTurnos[fila][0])).Date && listaDatosTurnos[fila][2].ToString() == "Disponible")
+                        for (int fila = 0; fila < listaDatosTurnos.Count; fila++)
                         {
-                            contador += 1;              //POR CADA TURNO SE FIJA SI COINCIDE CON EL DIA Y SI ES DISPONIBLE Y AUMENTA EL CONTADOR DEL DIA
+                            // validar que si esta vacia no haga eso
+                            if (listaDatosTurnos[fila].Count > 0)
+                            {
+                                if (listaDias[i].Date == (DateTime.Parse(listaDatosTurnos[fila][0])).Date && listaDatosTurnos[fila][2].ToString() == "Disponible")
+                                {
+                                    contador += 1;              //POR CADA TURNO SE FIJA SI COINCIDE CON EL DIA Y SI ES DISPONIBLE Y AUMENTA EL CONTADOR DEL DIA
+                                }
+                            }
+
                         }
+
                     }
-                    listaContadores.Add(contador);
+
                 }
-                
-                
+                listaContadores.Add(contador);
+
+
+
 
             }
-            if (!(listaDatosTurnos[0].Count > 0)) { 
-            MessageBox.Show("No hay ningun turno disponible", "seleccione otro turno", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    ;}
+            
 
             pantallaRegistrarReserva.mostrarFechas(listaDias, listaContadores);
             pantallaRegistrarReserva.solicitarSeleccionFecha();
@@ -226,7 +234,7 @@ namespace PPAI
             this.fechaSeleccionada = fecha;
             for (int fila = 0; fila < listaDatosTurnos.Count; fila++)
             {
-                if (DateTime.Parse(fecha).Date == (DateTime.Parse(listaDatosTurnos[fila][0])).Date)
+                if (listaDatosTurnos[fila].Count > 0 && DateTime.Parse(fecha).Date == (DateTime.Parse(listaDatosTurnos[fila][0])).Date)
                 {
                     turnosXFecha.Add(listaDatosTurnos[fila]);
                 }
@@ -241,6 +249,8 @@ namespace PPAI
 
         }
 
+
+        //Metodo de enganche
         public void tomarConfirmacionReserva(bool whatsapp, bool mail)                                                       //TOMA LA CONFIRMACION Y DISPARA EL METODO PARA LA GENERACION DE LA RESERVA
         {
             List<String> marcaModelo = this.rtSeleccionado.getMarcaYModelo();
@@ -276,7 +286,10 @@ namespace PPAI
             //getEstadoReservado();
             DateTime date = new DateTime();
             date = DateTime.Now;
-            rtSeleccionado.reservar(this.turnoSeleccionado, this.estadoAAsignar, this.cientificoLogueado, date);
+            
+            //se inicia la reserva
+            rtSeleccionado.reservar(this.turnoSeleccionado, this.cientificoLogueado, date);
+
             generarNotificacionParaCientifico(whatsapp, mail);
             using (var ctx = new Contexto.Context())
             {

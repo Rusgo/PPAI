@@ -48,8 +48,7 @@ namespace PPAI
         public List<string> getTurno()      //DEVUELVE LOS DATOS DEL TURNO
         {
             List<string> listaDatosTurno = new List<string>();
-            foreach (CambioEstadoTurno cet in cambioEstadoTurno)
-            {
+            
                 string nombreEstado = "";
                 if (estadoActual.GetType() == typeof(Clases.Disponible))
                 {
@@ -58,7 +57,7 @@ namespace PPAI
                     nombreEstado = estadoActual.obtenerNombre();
                     listaDatosTurno.Add(nombreEstado);
                 }
-            }
+            
             return listaDatosTurno;
         }
 
@@ -67,22 +66,11 @@ namespace PPAI
             return (this.fechaHoraInicio == DateTime.Parse(fechaHoraInicio) && this.fechaHoraFin == DateTime.Parse(fechaHoraFin));
         }
 
-        public void reservar(DateTime date)                   //SETEA LA FECHAHORAFIN EN EL CAMBIO ESTADO ANTERIOR Y CREA UN NUEVO CAMBIO ESTADO
+        public void reservar(DateTime date, RecursoTecnologico rt,PersonalCientifico c)                   //SETEA LA FECHAHORAFIN EN EL CAMBIO ESTADO ANTERIOR Y CREA UN NUEVO CAMBIO ESTADO
         {
-            /* delega al estado actual
-            foreach ( CambioEstadoTurno ce in this.cambioEstadoTurno)
-            {
-                if (ce.esActual())
-                {
-                    ce.setFechaHoraHasta(DateTime.Now);
-                    break;
-                }
-            }
-
-            CambioEstadoTurno cambioEstadoNuevo = new CambioEstadoTurno(estadoAAsignar, DateTime.Now);
-            this.CambioEstadoTurno.Add(cambioEstadoNuevo);
-            */
-            estadoActual.reservar(this,cambioEstadoTurno,date);
+            // delega al estado actual
+            
+            estadoActual.reservar(this,cambioEstadoTurno,date,rt,this, c);
         }
         public void agregarCE(CambioEstadoTurno ce)
         {

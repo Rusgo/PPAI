@@ -18,7 +18,7 @@ namespace PPAI.Clases
             return "Con reserva pendiente de confirmacion";
         }
 
-        public override void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date)
+        public override void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date, RecursoTecnologico rt, Turno ts, PersonalCientifico cl)
         {
             throw new NotImplementedException();
         }
