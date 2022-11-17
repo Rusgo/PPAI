@@ -15,7 +15,7 @@ namespace PPAI
             string mensaje = "Se ha enviado la notificación de confirmación de reserva del turno del día " + turnoSeleccionado.FechaHoraInicio.ToString() + " para el Recurso Tecnológico: " + rtSeleccionado.TipoRecursoTecnologico.Nombre.ToString() + " Nro. inventario: " +
                 rtSeleccionado.NumeroRT.ToString() + " Modelo: " + modelo + " Marca: " + marca + " al número de WhatsApp: " + numeroWhatsapp;
 
-            MessageBox.Show(mensaje);
+            MessageBox.Show(mensaje,"Notificacion enviada correctamente",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
         }
     }
 }

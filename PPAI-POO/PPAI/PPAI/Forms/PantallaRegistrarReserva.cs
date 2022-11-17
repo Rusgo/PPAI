@@ -87,7 +87,7 @@ namespace PPAI.Forms
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un Tipo de recurso tecnológico");
+                MessageBox.Show("Debe seleccionar un Tipo de recurso tecnológico","Sleccione un recurso tecnologico",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
           
         }
@@ -171,7 +171,7 @@ namespace PPAI.Forms
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un recurso tecnológico");
+                MessageBox.Show("Debe seleccionar un recurso tecnológico","Seleccione un recurso tecnologico",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
             }
 
         }
@@ -254,7 +254,7 @@ namespace PPAI.Forms
             }
             else
             {
-                MessageBox.Show("Debe seleccionar una fecha disponible");
+                MessageBox.Show("Debe seleccionar una fecha disponible","Seleccione una fecha disponible",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
 
@@ -318,7 +318,7 @@ namespace PPAI.Forms
                     {
                         contadorSelecciones += 1;
                         turnoSeleccionado = (dg_turno.Rows[i].Cells[0].Value.ToString(), dg_turno.Rows[i].Cells[1].Value.ToString());
-                        MessageBox.Show("Turno seleccionado con éxito. A continuación confirme su reserva");
+                        MessageBox.Show("Turno seleccionado con éxito. A continuación confirme su reserva","Confirme reserva",MessageBoxButtons.OK,MessageBoxIcon.Information);
                     }
                 }
             }
@@ -330,7 +330,7 @@ namespace PPAI.Forms
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un turno disponible");
+                MessageBox.Show("Debe seleccionar un turno disponible","Seleccione un turno disponible",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
 
