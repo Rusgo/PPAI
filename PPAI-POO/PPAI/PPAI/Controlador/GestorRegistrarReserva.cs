@@ -286,10 +286,10 @@ namespace PPAI
             //getEstadoReservado();
             DateTime date = new DateTime();
             date = DateTime.Now;
-            
+            /////////////////////////////////////////////////////////////////////////////////
             //se inicia la reserva
             rtSeleccionado.reservar(this.turnoSeleccionado, this.cientificoLogueado, date);
-
+            /////////////////////////////////////////////////////////////////////////////////
             generarNotificacionParaCientifico(whatsapp, mail);
             using (var ctx = new Contexto.Context())
             {

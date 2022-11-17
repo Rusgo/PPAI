@@ -49,11 +49,6 @@ namespace PPAI
             return (this.fechaHoraHasta == DateTime.Parse("01/01/1900"));
         }
 
-        public string getEstado() // DEVUELVE EL NOMBRE DEL ESTADO
-        {
-            return this.estado.getNombre();
-        }
-
         public void setFechaHoraHasta( DateTime fechaHora)  // SETEA EL VALOR DE FECHAHORAHASTA
         {
             this.fechaHoraHasta = fechaHora;

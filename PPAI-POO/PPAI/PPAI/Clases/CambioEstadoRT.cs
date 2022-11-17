@@ -54,10 +54,7 @@ namespace PPAI
             return false;
         }
         
-        public string getEstado() // DEVUELVE EL NOMBRE DEL ESTADO
-        {
-            return estado.getNombre();
-        }
+        
     }
 }
 

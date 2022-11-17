@@ -9,48 +9,38 @@ namespace PPAI
     public abstract class Estado     //DEFINO LA CLASE
     {
         private int Id;
-        private string nombre;
-        private string descripcion;
+        
         
 
 
         //CONSTRUCTOR DE LA CLASE
-
-        public Estado(string nombre, string descripcion)
-        {
-            this.nombre = nombre;
-            this.descripcion = descripcion;
-        }
-
         public Estado() { }
 
         //GETTERS Y SETTERS
         public int id { get => Id; set => Id = value; }
-        public string Nombre { get => nombre; set => nombre = value; }
-        public string Descripcion { get => descripcion; set => descripcion = value; }
 
-
-
-
-        public bool esAmbitoTurno()  // VERIFICA QUE EL ESTADO ES DEL AMBITO TURNO
-        {
-            return false;
-        }
-
-        public bool esReservado()  // VERIFICA QUE EL ESTADO ES RESERVADO
-        {
-            return false;
-        }
-
-        public string getNombre() //DEVUELVE EL NOMBRE DEL ESTADO
-        {
-            return this.nombre;
-        }
-
-        //metodos de estado Turno
-        public abstract void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date, RecursoTecnologico rt, Turno ts, PersonalCientifico cl);
+        
+        //generales(explicar)
         public abstract Estado crearProximoEstado();
         public abstract string obtenerNombre();
+        public abstract void iniciarMantenimiento();
+
+        //Metodos de estado turno
+        public abstract void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date, RecursoTecnologico rt, Turno ts, PersonalCientifico cl);
+        public abstract void rechazarReserva();
+        public abstract void confirmarReserva();
+        public abstract void cancelarReserva();
+        public abstract void aular();
+        public abstract void registrarNoUsado();
+        public abstract void registrarUso();
+
+        //MetodosDelEstadoRT
+        public abstract void habilitar();
+        public abstract void finañizarMantenimiento();
+        public abstract void extenderMantenimiento();
+        public abstract void registrarBajaTecnica();
+        public abstract void ingresarMantenimientoCorrectivo();
+        public abstract void darDeBaja();
 
     }
 }

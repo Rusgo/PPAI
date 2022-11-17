@@ -8,7 +8,52 @@ namespace PPAI.Clases
 {
     public class EnMantenimiento : Estado
     {
+        public override void aular()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void cancelarReserva()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void confirmarReserva()
+        {
+            throw new NotImplementedException();
+        }
+
         public override Estado crearProximoEstado()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void darDeBaja()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void extenderMantenimiento()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void finañizarMantenimiento()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void habilitar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ingresarMantenimientoCorrectivo()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void iniciarMantenimiento()
         {
             throw new NotImplementedException();
         }
@@ -18,6 +63,25 @@ namespace PPAI.Clases
             return "En mantenimiento";
         }
 
+        public override void rechazarReserva()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void registrarBajaTecnica()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void registrarNoUsado()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void registrarUso()
+        {
+            throw new NotImplementedException();
+        }
 
         public override void reservar(Turno turno, List<CambioEstadoTurno> h, DateTime date, RecursoTecnologico rt, Turno ts, PersonalCientifico cl)
         {

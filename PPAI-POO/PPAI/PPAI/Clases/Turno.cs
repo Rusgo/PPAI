@@ -69,7 +69,6 @@ namespace PPAI
         public void reservar(DateTime date, RecursoTecnologico rt,PersonalCientifico c)                   //SETEA LA FECHAHORAFIN EN EL CAMBIO ESTADO ANTERIOR Y CREA UN NUEVO CAMBIO ESTADO
         {
             // delega al estado actual
-            
             estadoActual.reservar(this,cambioEstadoTurno,date,rt,this, c);
         }
         public void agregarCE(CambioEstadoTurno ce)
